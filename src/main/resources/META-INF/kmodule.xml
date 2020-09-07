@@ -5,8 +5,12 @@
         <property key="org.kie.dmn.profiles.signavio" value="org.kie.dmn.signavio.KieDMNSignavioProfile"/>
     </configuration>
 
-    <kbase name="SignavioExampleKB" packages="org.drools.examples.signavio.drl">
-        <ksession name="SignavioExampleKS"/>
+    <kbase name="SignavioExampleDroolsKB" packages="org.drools.examples.signavio.drl">
+        <ksession name="SignavioExampleDroolsKS"/>
+    </kbase>
+
+    <kbase name="SignavioExampleDmnXmlKB" packages="org.drools.examples.signavio.xml">
+        <ksession name="SignavioExampleDmnXmlKS"/>
     </kbase>
 
 </kmodule>

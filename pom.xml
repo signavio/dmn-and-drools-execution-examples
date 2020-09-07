@@ -41,12 +41,6 @@
     </dependency>
 
     <dependency>
-      <groupId>com.signavio</groupId>
-      <artifactId>dmn-formulae-java8</artifactId>
-      <version>1.1</version>
-    </dependency>
-
-    <dependency>
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>
     </dependency>
@@ -71,6 +65,13 @@
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-dmn-signavio</artifactId>
+      <version>7.42.0.Final</version>
+    </dependency>
+
   </dependencies>
 
 </project>
