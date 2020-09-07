@@ -25,9 +25,12 @@ public class SignavioExample {
 		ksession.dispose();
 	}
 	
+	//		DMNRuntime dmnRuntime =
+	//				kieClasspathContainer.newKieSession("SignavioDrools").getKieRuntime(DMNRuntime.class);
+	//		List<DMNModel> models = dmnRuntime.getModels();
 	
 	private static void createInput(int age, KieSession ksession) throws InstantiationException, IllegalAccessException {
-		FactType inputType = ksession.getKieBase().getFactType("org.drools.examples.signavio", "Input");
+		FactType inputType = ksession.getKieBase().getFactType("org.drools.examples.signavio.drl", "Input");
 		Object input = inputType.newInstance();
 		inputType.set(input, "age", new BigDecimal(age));
 		ksession.insert(input);

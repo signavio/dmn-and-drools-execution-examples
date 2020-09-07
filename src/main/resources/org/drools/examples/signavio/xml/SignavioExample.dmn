@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.signavio.com/dmn/1.1/diagram/b32d2b8df93c422fbefff6d41d7a1983.xml" exporterVersion="14.5.2" name="SignavioExample" id="id-482c4ba1b29845a3a934be2dcdd1e9d3" sigExt:revisionId="28f4d0654d2249ba911fce8b18dc6c2a" sigExt:revisionNumber="4" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.signavio.com/dmn/1.1/diagram/b32d2b8df93c422fbefff6d41d7a1983.xml" xmlns:sigExt="http://www.signavio.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+    <extensionElements>
+        <sigExt:diagramMetaData name="mytable" value=""/>
+    </extensionElements>
+    <itemDefinition isCollection="false" name="fullAge" id="id-ac32e0e6b2e7632d898da3c4809da74d" label="fullAge">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="age" id="id-07c085a4cb900adf019a55d2da252bbf" label="age">
+        <typeRef>feel:number</typeRef>
+        <allowedValues>
+            <text>[0.0..150.0]</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="isFullAge" id="id-e602de0affcecb219ed886be79c96860" label="isFullAge">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <inputData name="age" id="id-43832ce03cba261849b96ab7e8e87dcc" label="age" sigExt:shapeId="sid-62869D93-E983-4902-82FB-ACB0FD206837" sigExt:diagramId="b32d2b8df93c422fbefff6d41d7a1983">
+        <extensionElements>
+            <sigExt:diagramMetaData name="mytable" value=""/>
+        </extensionElements>
+        <variable typeRef="sig:age" name="age" id="id-43832ce03cba261849b96ab7e8e87dcc_variable"/>
+    </inputData>
+    <decision name="fullAge" id="id-982ef8cb051f17d3f082d1706b973787" label="fullAge" sigExt:shapeId="sid-AD9D4DA4-0A50-42D2-9AF8-05221A96D330" sigExt:diagramId="b32d2b8df93c422fbefff6d41d7a1983">
+        <extensionElements/>
+        <variable typeRef="sig:fullAge" name="fullAge" id="id-982ef8cb051f17d3f082d1706b973787_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-43832ce03cba261849b96ab7e8e87dcc"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-935d780bd8119195a45853b2f23b5c69" label="age">
+                <inputExpression>
+                    <text>age</text>
+                </inputExpression>
+            </input>
+            <output name="fullAge" typeRef="sig:isFullAge" id="id-049940fbe58974277fb7d54a3455e457" label="fullAge"/>
+            <rule id="id-06f2c7f4e79077b728f9ed34a132890c">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&lt; 18</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>false</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-99a777127d743b5c8aadbd4b12b88508">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&gt;= 18</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>true</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>

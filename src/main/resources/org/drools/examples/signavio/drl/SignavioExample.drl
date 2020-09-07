@@ -1,4 +1,4 @@
-package org.drools.examples.signavio
+package org.drools.examples.signavio.drl
 
 import java.time.OffsetTime
 import java.util.Arrays
@@ -16,6 +16,7 @@ import java.time.LocalDate
 import com.signavio.dmn.formulae.v3.DmnFormulae
 import java.util.Collections
 import java.math.RoundingMode
+import org.drools.examples.signavio.SignavioExample
 
 global String modelId
 global Integer revisionNumber
