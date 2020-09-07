@@ -1,36 +1,36 @@
 package org.drools.examples.signavio;
 
 import java.math.BigDecimal;
-import java.util.List;
 
+import org.drools.core.ClassObjectFilter;
 import org.kie.api.KieServices;
+import org.kie.api.definition.type.FactType;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.kie.dmn.api.core.DMNModel;
-import org.kie.dmn.api.core.DMNRuntime;
+import org.kie.internal.logger.KnowledgeRuntimeLoggerFactory;
 
 public class SignavioExample {
 	
-	public static void main(String[] args) {
-		KieContainer kieClasspathContainer = KieServices.Factory.get()
-				.getKieClasspathContainer();
+	public static void main(String[] args) throws IllegalAccessException, InstantiationException {
+		KieContainer kieClasspathContainer = KieServices.Factory.get().getKieClasspathContainer();
 		
-		KieSession ksession = kieClasspathContainer
-				.newKieSession("SignavioExampleKS");
+		KieSession ksession = kieClasspathContainer.newKieSession("SignavioExampleKS");
+		KnowledgeRuntimeLoggerFactory.newConsoleLogger(ksession);
 		
-//		DMNRuntime dmnRuntime =
-//				kieClasspathContainer.newKieSession("SignavioDrools").getKieRuntime(DMNRuntime.class);
-//		List<DMNModel> models = dmnRuntime.getModels();
-
-		ksession.insert(new Input(17));
-		
-//		ksession.startProcess("Example");
+		createInput(17, ksession);
 		ksession.fireAllRules();
 		
-		
 		ksession.getObjects().forEach(System.out::println);
-
+		
 		ksession.dispose();
+	}
+	
+	
+	private static void createInput(int age, KieSession ksession) throws InstantiationException, IllegalAccessException {
+		FactType inputType = ksession.getKieBase().getFactType("org.drools.examples.signavio", "Input");
+		Object input = inputType.newInstance();
+		inputType.set(input, "age", new BigDecimal(age));
+		ksession.insert(input);
 	}
 	
 	
