@@ -1,0 +1,179 @@
+{
+  "inputParameterDefinitions" : [ {
+    "id" : "cb7e33e39ee644da9a4bb48b1cc74e65/sid-D7DF30A5-56A7-4043-86FC-EF3595C49355",
+    "shapeId" : "sid-D7DF30A5-56A7-4043-86FC-EF3595C49355",
+    "diagramId" : "cb7e33e39ee644da9a4bb48b1cc74e65",
+    "modelName" : "Simple",
+    "requirementName" : "Customer Years"
+  }, {
+    "id" : "cb7e33e39ee644da9a4bb48b1cc74e65/sid-CE8F3937-3DA2-41AB-AF9C-B7F301C6D8E4",
+    "shapeId" : "sid-CE8F3937-3DA2-41AB-AF9C-B7F301C6D8E4",
+    "diagramId" : "cb7e33e39ee644da9a4bb48b1cc74e65",
+    "modelName" : "Simple",
+    "requirementName" : "Customer Level"
+  } ],
+  "outputParameterDefinitions" : [ {
+    "id" : "cb7e33e39ee644da9a4bb48b1cc74e65/sid-0B3F3109-04D4-4B42-9CD1-7480776DF1D3",
+    "shapeId" : "sid-0B3F3109-04D4-4B42-9CD1-7480776DF1D3",
+    "diagramId" : "cb7e33e39ee644da9a4bb48b1cc74e65",
+    "modelName" : "Simple",
+    "requirementName" : " Calculate total discount"
+  } ],
+  "testCases" : [ {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 0
+    }, {
+      "type" : "enumeration",
+      "value" : "0",
+      "name" : "None"
+    } ],
+    "expectedValues" : [ {
+      "type" : "number",
+      "value" : 0
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 5
+    }, {
+      "type" : "enumeration",
+      "value" : "0",
+      "name" : "None"
+    } ],
+    "expectedValues" : [ {
+      "type" : "number",
+      "value" : 0.05
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 10
+    }, {
+      "type" : "enumeration",
+      "value" : "0",
+      "name" : "None"
+    } ],
+    "expectedValues" : [ {
+      "type" : "number",
+      "value" : 0.1
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 20
+    }, {
+      "type" : "enumeration",
+      "value" : "0",
+      "name" : "None"
+    } ],
+    "expectedValues" : [ {
+      "type" : "number",
+      "value" : 0.15
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 0
+    }, {
+      "type" : "enumeration",
+      "value" : "1",
+      "name" : "Silver"
+    } ],
+    "expectedValues" : [ {
+      "type" : "number",
+      "value" : 0.05
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 5
+    }, {
+      "type" : "enumeration",
+      "value" : "1",
+      "name" : "Silver"
+    } ],
+    "expectedValues" : [ {
+      "type" : "number",
+      "value" : 0.1
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 10
+    }, {
+      "type" : "enumeration",
+      "value" : "1",
+      "name" : "Silver"
+    } ],
+    "expectedValues" : [ {
+      "type" : "number",
+      "value" : 0.15
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 20
+    }, {
+      "type" : "enumeration",
+      "value" : "1",
+      "name" : "Silver"
+    } ],
+    "expectedValues" : [ {
+      "type" : "number",
+      "value" : 0.2
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 0
+    }, {
+      "type" : "enumeration",
+      "value" : "2",
+      "name" : "Gold"
+    } ],
+    "expectedValues" : [ {
+      "type" : "number",
+      "value" : 0.1
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 5
+    }, {
+      "type" : "enumeration",
+      "value" : "2",
+      "name" : "Gold"
+    } ],
+    "expectedValues" : [ {
+      "type" : "number",
+      "value" : 0.15
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 10
+    }, {
+      "type" : "enumeration",
+      "value" : "2",
+      "name" : "Gold"
+    } ],
+    "expectedValues" : [ {
+      "type" : "number",
+      "value" : 0.2
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 20
+    }, {
+      "type" : "enumeration",
+      "value" : "2",
+      "name" : "Gold"
+    } ],
+    "expectedValues" : [ {
+      "type" : "number",
+      "value" : 0.25
+    } ]
+  } ]
+}

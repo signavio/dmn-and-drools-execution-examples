@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">
+    <configuration>
+        <property key="org.kie.dmn.profiles.signavio" value="org.kie.dmn.signavio.KieDMNSignavioProfile"/>
+    </configuration>
+
+    <kbase name="SignavioExampleDroolsSimpleKB" packages="com.signavio.examples.drl.simple">
+        <ksession name="SignavioExampleDroolsSimpleKS"/>
+    </kbase>
+    <kbase name="SignavioExampleDroolsOwnTypesKB" packages="com.signavio.examples.drl.owntypes">
+        <ksession name="SignavioExampleDroolsOwnTypesKS"/>
+    </kbase>
+    <kbase name="SignavioExampleDroolsSandboxKB" packages="com.signavio.examples.drl.sandbox">
+        <ksession name="SignavioExampleDroolsSandboxKS"/>
+    </kbase>
+
+    <kbase name="SignavioExampleDMNSimpleKB" packages="com.signavio.examples.dmn.simple">
+        <ksession name="SignavioExampleDMNSimpleKS"/>
+    </kbase>
+
+    <kbase name="SignavioExampleDMNSandboxKB" packages="com.signavio.examples.dmn.sandbox">
+        <ksession name="SignavioExampleDMNSandboxKS"/>
+    </kbase>
+
+</kmodule>

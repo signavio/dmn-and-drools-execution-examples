@@ -1,0 +1,30 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Installing Testsuite API
+      run: mvn install:install-file -Dfile=libs/bdm-test-suite-api-1.1.jar -DgroupId=com.signavio -DartifactId=bdm-testsuite-api -Dversion=1.1 -Dpackaging=jar
+    - name: Installing Formulae
+      run: mvn install:install-file -Dfile=libs/dmn-formulae-java8-1.1.jar -DgroupId=com.signavio -DartifactId=dmn-formulae -Dversion=1.1 -Dpackaging=jar
+    - name: Build with Maven
+      run: mvn -q -B package --file pom.xml
+    - name: Execute example Drools/DMN files
+      run: mvn -q exec:java -Dexec.mainClass="com.signavio.examples.SignavioExamples"

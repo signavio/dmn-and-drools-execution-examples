@@ -1,0 +1,190 @@
+package com.signavio.examples.drl.sandbox
+
+import java.time.OffsetTime
+import java.util.Arrays
+import org.slf4j.Logger
+import java.text.DecimalFormat
+import org.slf4j.LoggerFactory
+import com.signavio.dmn.formulae.v3.IndexedListElement
+import java.util.ArrayList
+import java.util.HashSet
+import java.math.BigDecimal
+import java.util.List
+import java.time.OffsetDateTime
+import com.signavio.dmn.formulae.v3.DmnHierarchyFormulae
+import java.time.LocalDate
+import com.signavio.dmn.formulae.v3.DmnFormulae
+import java.util.Collections
+import java.math.RoundingMode
+
+global String modelId
+global Integer revisionNumber
+global List $allMessages
+global Logger $logger
+
+declare  DmnFormulae
+end
+
+declare  DmnFormulaeLocal  extends  DmnFormulae
+end
+
+declare  DmnHierarchyFormulae
+end
+
+declare  IndexedListElement
+end
+
+declare  AnnotationItem
+    decision : String
+    annotationName : String
+    ruleName : String
+    category : AnnotationCategory
+    message : String
+    timestamp : OffsetDateTime
+end
+
+declare  Input
+    age : BigDecimal
+end
+
+declare  IsLegalAge  extends  IndexedListElement
+    isLegalAge : Boolean
+end
+
+declare  IsLegalAge_Output
+    isLegalAge : Boolean
+end
+
+declare enum AnnotationCategory
+	INFO,CRITICAL,REGULATION,POLICY;
+end
+
+rule "initialize_version_info"
+    no-loop true
+    salience 1000
+when
+then
+	drools.getWorkingMemory().setGlobal("modelId", "bf6b811c3e0c47bb942818b4005c80c3");
+	drools.getWorkingMemory().setGlobal("revisionNumber", 1);
+end
+
+rule "initialize_annotations_list"
+    no-loop true
+    salience 1000
+when
+then
+	drools.getWorkingMemory().setGlobal("$allMessages", new ArrayList());
+end
+
+rule "add_formulae_to_memory"
+    no-loop true
+    salience 1000
+when
+then
+	insert(new DmnFormulaeLocal());
+	insert(new DmnHierarchyFormulae());
+end
+
+rule "init_logger"
+    no-loop true
+    salience 1000
+when
+then
+	drools.getWorkingMemory().setGlobal("$logger", LoggerFactory.getLogger("DroolsExecution"));
+end
+
+rule "log_input_rule"
+    no-loop true
+    salience 999
+when
+    $input : Input(  )
+then
+	$logger.info($input.toString());
+end
+
+rule "isLegalAge_rule_1"
+    no-loop true
+    //decision:  isLegalAge
+    salience 1
+when
+    $F : DmnFormulaeLocal(  )
+    $H : DmnHierarchyFormulae(  )
+    not(
+    IsLegalAge_Output(  )   )
+    not(
+    IsLegalAge(  )   )
+    $input : Input(  )
+    eval( $F.nullSafeEval(($F.lessThan($input.getAge(), BigDecimal.valueOf(18.0)))) )
+then
+	IsLegalAge $isLegalAge = new IsLegalAge();
+	$isLegalAge.setIsLegalAge(false);
+	$isLegalAge.setIndex(0);
+	insert($isLegalAge);
+end
+
+rule "isLegalAge_rule_2"
+    no-loop true
+    //decision:  isLegalAge
+    salience 1
+when
+    $F : DmnFormulaeLocal(  )
+    $H : DmnHierarchyFormulae(  )
+    not(
+    IsLegalAge_Output(  )   )
+    not(
+    IsLegalAge(  )   )
+    $input : Input(  )
+    eval( $F.nullSafeEval(($F.greaterThanOrEqualTo($input.getAge(), BigDecimal.valueOf(18.0)))) )
+then
+	IsLegalAge $isLegalAge = new IsLegalAge();
+	$isLegalAge.setIsLegalAge(true);
+	$isLegalAge.setIndex(1);
+	insert($isLegalAge);
+end
+
+rule "isLegalAge_singleResultOutput"
+    no-loop true
+    //decision:  isLegalAge
+    salience 0
+when
+    $F : DmnFormulaeLocal(  )
+    $H : DmnHierarchyFormulae(  )
+    not(
+    IsLegalAge_Output(  )   )
+    $input : Input(  )
+    $isLegalAge : IsLegalAge(  )
+then
+	IsLegalAge_Output $isLegalAge_Output = new IsLegalAge_Output();
+	$isLegalAge_Output.setIsLegalAge($isLegalAge.getIsLegalAge());
+	retract($isLegalAge);
+	insert($isLegalAge_Output);
+end
+
+rule "isLegalAge_emptyResultFallBack"
+    no-loop true
+    //decision:  isLegalAge
+    salience -1
+when
+    $F : DmnFormulaeLocal(  )
+    $H : DmnHierarchyFormulae(  )
+    not(
+    IsLegalAge_Output(  )   )
+    $input : Input(  )
+then
+	IsLegalAge_Output $isLegalAge_Output = new IsLegalAge_Output();
+	$isLegalAge_Output.setIsLegalAge(null);
+	insert($isLegalAge_Output);
+end
+
+rule "isLegalAge_cleanup_rule_output"
+    no-loop true
+    //decision:  isLegalAge
+    salience 2
+when
+    $F : DmnFormulaeLocal(  )
+    $H : DmnHierarchyFormulae(  )
+    IsLegalAge_Output(  )
+    $isLegalAge : IsLegalAge(  )
+then
+	retract($isLegalAge);
+end

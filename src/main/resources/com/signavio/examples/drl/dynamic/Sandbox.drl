@@ -1,0 +1,195 @@
+package com.signavio.examples.drl.dynamic
+
+import java.time.OffsetTime
+import java.util.Arrays
+import org.slf4j.Logger
+import java.text.DecimalFormat
+import org.slf4j.LoggerFactory
+import com.signavio.dmn.formulae.v3.IndexedListElement
+import java.util.ArrayList
+import java.util.HashSet
+import java.math.BigDecimal
+import java.util.List
+import java.time.OffsetDateTime
+import com.signavio.dmn.formulae.v3.DmnHierarchyFormulae
+import java.time.LocalDate
+import com.signavio.dmn.formulae.v3.DmnFormulae
+import java.util.Collections
+import java.math.RoundingMode
+
+global String modelId
+global Integer revisionNumber
+global List $allMessages
+global Logger $logger
+
+declare  DmnFormulae 
+end
+
+declare  DmnFormulaeLocal  extends  DmnFormulae  
+end
+
+declare  DmnHierarchyFormulae 
+end
+
+declare  IndexedListElement 
+end
+
+declare  AnnotationItem 
+    decision : String  
+    annotationName : String  
+    ruleName : String  
+    category : AnnotationCategory  
+    message : String  
+    timestamp : OffsetDateTime  
+end
+
+declare  Input 
+    aNumber : BigDecimal  
+end
+
+declare  SomeCalculation  extends  IndexedListElement  
+    firstMultiple : BigDecimal  
+    inWords : String  
+end
+
+declare  SomeCalculation_Output 
+    someCalculation : List  
+    firstMultiple : List  
+    inWords : List  
+end
+
+declare enum AnnotationCategory
+	INFO,CRITICAL,REGULATION,POLICY;
+end
+
+rule "initialize_version_info"
+    no-loop true
+    salience 1000
+when
+then
+	drools.getWorkingMemory().setGlobal("modelId", "ae1e455091d74bda9936ecb89214de08");
+	drools.getWorkingMemory().setGlobal("revisionNumber", 1);
+end
+
+rule "initialize_annotations_list"
+    no-loop true
+    salience 1000
+when
+then
+	drools.getWorkingMemory().setGlobal("$allMessages", new ArrayList());
+end
+
+rule "add_formulae_to_memory"
+    no-loop true
+    salience 1000
+when
+then
+	insert(new DmnFormulaeLocal());
+	insert(new DmnHierarchyFormulae());
+end
+
+rule "init_logger"
+    no-loop true
+    salience 1000
+when
+then
+	drools.getWorkingMemory().setGlobal("$logger", LoggerFactory.getLogger("DroolsExecution"));
+end
+
+rule "log_input_rule"
+    no-loop true
+    salience 999
+when
+    $input : Input(  )  
+then
+	$logger.info($input.toString());
+end
+
+rule "someCalculation_rule_1"
+    no-loop true
+    //decision:  someCalculation
+    salience 2
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )  
+    not( 
+    SomeCalculation_Output(  )   )
+
+    $input : Input(  )
+    eval( $F.nullSafeEval(($F.lessThan($input.getANumber(), BigDecimal.valueOf(10.0)))) ) 
+then
+	SomeCalculation $someCalculation = new SomeCalculation();
+	$someCalculation.setFirstMultiple(($F.multiply($input.getANumber(), BigDecimal.valueOf(2.0))));
+	$someCalculation.setInWords($F.concat(Arrays.asList( new Object[] {$F.text($input.getANumber(), "##.#"), " * 2"})));
+	$someCalculation.setIndex(0);
+	insert($someCalculation);
+	$logger.info("Rule someCalculation_rule1 fired:");
+	$logger.info("	Inputs: " + $input.getANumber());
+	$logger.info("	Outputs: " + $someCalculation.getFirstMultiple() + ", " + $someCalculation.getInWords());
+end
+
+rule "someCalculation_rule_2"
+    no-loop true
+    //decision:  someCalculation
+    salience 1
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )
+    not(
+        SomeCalculation_Output(  )
+    )
+
+    $input : Input(  )
+then
+	SomeCalculation $someCalculation = new SomeCalculation();
+	$someCalculation.setFirstMultiple(($F.multiply($input.getANumber(), BigDecimal.valueOf(4.0))));
+	$someCalculation.setInWords($F.concat(Arrays.asList( new Object[] {$F.text($input.getANumber(), "##.###"), " * 4"})));
+	$someCalculation.setIndex(1);
+	insert($someCalculation);
+	$logger.info("Rule someCalculation_rule2 fired:");
+	$logger.info("	Inputs: " + $input.getANumber());
+	$logger.info("	Outputs: " + $someCalculation.getFirstMultiple() + ", " + $someCalculation.getInWords());
+end
+
+rule "someCalculation_aggregation"
+    no-loop true
+    //decision:  someCalculation
+    salience 0
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )  
+    not( 
+    SomeCalculation_Output(  )   ) 
+    $input : Input(  )  
+    $all_SomeCalculation : List(  ) from collect( SomeCalculation(  )  ) 
+then
+	SomeCalculation_Output $someCalculation_Output = new SomeCalculation_Output();
+	$all_SomeCalculation = $F.internalSortedByIndex($all_SomeCalculation);
+	List $all_inWords = new ArrayList();
+	List $all_firstMultiple = new ArrayList();
+	for (int $i = 0; $i < $all_SomeCalculation.size(); $i++) {
+		SomeCalculation $eachRuleOutput = (SomeCalculation) $all_SomeCalculation.get($i);
+		$all_inWords.add( $eachRuleOutput.getInWords() );
+		$all_firstMultiple.add( $eachRuleOutput.getFirstMultiple() );
+	}
+	$someCalculation_Output.setInWords($all_inWords);
+	$someCalculation_Output.setFirstMultiple($all_firstMultiple);
+	$someCalculation_Output.setSomeCalculation($all_SomeCalculation);
+	insert($someCalculation_Output);
+	$logger.info("Aggregation rule fired for decision 'someCalculation'[sid-3F3750D1-7BEE-406A-A79D-265C050A1118]:");
+	$logger.info("	Outputs: " + $someCalculation_Output.toString());
+end
+
+rule "someCalculation_cleanup_rule_output"
+    no-loop true
+    //decision:  someCalculation
+    salience 2
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )  
+    SomeCalculation_Output(  )  
+    $someCalculation : SomeCalculation(  )  
+then
+	retract($someCalculation);
+	$logger.info("Clean up rule output for decision 'someCalculation'[sid-3F3750D1-7BEE-406A-A79D-265C050A1118]:");
+end

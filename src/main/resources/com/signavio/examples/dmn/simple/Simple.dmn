@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.signavio.com/dmn/1.1/diagram/cb7e33e39ee644da9a4bb48b1cc74e65.xml" exporterVersion="14.5.2" name="Simple" id="id-31e37b6bb4604a76bf9c38cb428322f4" sigExt:revisionId="8fa772ea783948e291bd5cd9469f46e9" sigExt:revisionNumber="1" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.signavio.com/dmn/1.1/diagram/cb7e33e39ee644da9a4bb48b1cc74e65.xml" xmlns:sigExt="http://www.signavio.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+    <extensionElements>
+        <sigExt:diagramMetaData name="foobar" value=""/>
+    </extensionElements>
+    <itemDefinition isCollection="false" name="levelsDiscount" id="id-81eb2c69408515c0c064708d54c801ad" label="Levels Discount">
+        <typeRef>feel:number</typeRef>
+        <allowedValues>
+            <text>[0.0..1.0]</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="calculateDiscountBasedOnYears" id="id-2dadb602eeeba544b9f73fb306ffb243" label="Calculate discount based on years">
+        <typeRef>feel:number</typeRef>
+        <allowedValues>
+            <text>[0.0..1.0]</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="calculateDiscountBasedOnLevel" id="id-dcdd8a3d34e9f075f1550e7ec5e6e011" label="Calculate discount based on level">
+        <typeRef>feel:number</typeRef>
+        <allowedValues>
+            <text>[0.0..1.0]</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="customerYears" id="id-dd1b6aa38bfa8f8cb1bc3ebaf3364549" label="Customer Years">
+        <typeRef>feel:number</typeRef>
+        <allowedValues>
+            <text>[0.0..50.0]</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="calculateTotalDiscount" id="id-e3434b4404a2a97d4bdd0b13057712f1" label=" Calculate total discount">
+        <typeRef>feel:number</typeRef>
+        <allowedValues>
+            <text>[0.0..1.0]</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="yearsDiscount" id="id-55a26d9de3b78807e380d4ac28c41268" label="Years Discount">
+        <typeRef>feel:number</typeRef>
+        <allowedValues>
+            <text>[0.0..1.0]</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="customerLevel" id="id-3da7f3b828523b2f59be7b6384d0172b" label="Customer Level">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"None","Silver","Gold"</text>
+        </allowedValues>
+    </itemDefinition>
+    <inputData name="customerLevel" id="id-d0de089fe1e8c87cf4ab4bc43ab7191d" label="Customer Level" sigExt:shapeId="sid-CE8F3937-3DA2-41AB-AF9C-B7F301C6D8E4" sigExt:diagramId="cb7e33e39ee644da9a4bb48b1cc74e65">
+        <extensionElements/>
+        <variable typeRef="sig:customerLevel" name="customerLevel" id="id-d0de089fe1e8c87cf4ab4bc43ab7191d_variable"/>
+    </inputData>
+    <inputData name="customerYears" id="id-40c59f9ec1adf80b95af645851a7de1b" label="Customer Years" sigExt:shapeId="sid-D7DF30A5-56A7-4043-86FC-EF3595C49355" sigExt:diagramId="cb7e33e39ee644da9a4bb48b1cc74e65">
+        <extensionElements/>
+        <variable typeRef="sig:customerYears" name="customerYears" id="id-40c59f9ec1adf80b95af645851a7de1b_variable"/>
+    </inputData>
+    <decision name="calculateTotalDiscount" id="id-bce5c4622cb5e7cf097698d5eb78e9e2" label=" Calculate total discount" sigExt:shapeId="sid-0B3F3109-04D4-4B42-9CD1-7480776DF1D3" sigExt:diagramId="cb7e33e39ee644da9a4bb48b1cc74e65">
+        <extensionElements/>
+        <variable typeRef="sig:calculateTotalDiscount" name="calculateTotalDiscount" id="id-bce5c4622cb5e7cf097698d5eb78e9e2_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-aab4da014e8089cb4c458e15fe07a098"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-cb915b60384c3937ca929c0682fa706b"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>(calculateDiscountBasedOnLevel+calculateDiscountBasedOnYears)</text>
+        </literalExpression>
+    </decision>
+    <decision name="calculateDiscountBasedOnYears" id="id-aab4da014e8089cb4c458e15fe07a098" label="Calculate discount based on years" sigExt:shapeId="sid-2B18BDBF-671F-4F4F-8581-9DC334EBC6F9" sigExt:diagramId="cb7e33e39ee644da9a4bb48b1cc74e65">
+        <extensionElements/>
+        <variable typeRef="sig:calculateDiscountBasedOnYears" name="calculateDiscountBasedOnYears" id="id-aab4da014e8089cb4c458e15fe07a098_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-40c59f9ec1adf80b95af645851a7de1b"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="COLLECT" aggregation="SUM">
+            <input id="id-6d2647d35e4296949356fc8e28fde4ba" label="Customer Years">
+                <inputExpression>
+                    <text>customerYears</text>
+                </inputExpression>
+            </input>
+            <output name="calculateDiscountBasedOnYears" typeRef="sig:yearsDiscount" id="id-fb4404ee50ed9913564588e641a3b77a" label="Calculate discount based on years"/>
+            <rule id="id-124799e028d42a327c3ee0f78fb83b0c">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&gt;= 5</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>0.05</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-3a3915645682843c97c7d8624a20290b">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&gt;= 10</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>0.05</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-ce5750fee37b8bde6218f9b4f5a4a5d1">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&gt;= 20</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>0.05</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-b1dd9a8f3304c23bbe02143b8d3fd212">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>0</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="calculateDiscountBasedOnLevel" id="id-cb915b60384c3937ca929c0682fa706b" label="Calculate discount based on level" sigExt:shapeId="sid-50F8B5FC-2550-48DF-8738-A56AFCCB5DDA" sigExt:diagramId="cb7e33e39ee644da9a4bb48b1cc74e65">
+        <extensionElements/>
+        <variable typeRef="sig:calculateDiscountBasedOnLevel" name="calculateDiscountBasedOnLevel" id="id-cb915b60384c3937ca929c0682fa706b_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-d0de089fe1e8c87cf4ab4bc43ab7191d"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-d78b2b6b9b80f13293895dae8d4b3c71" label="Customer Level">
+                <inputExpression>
+                    <text>customerLevel</text>
+                </inputExpression>
+            </input>
+            <output name="calculateDiscountBasedOnLevel" typeRef="sig:levelsDiscount" id="id-6c30c1657ab771c6a28541581de9eb3a" label="Calculate discount based on level"/>
+            <rule id="id-56222e359d3dbaf0ed4f0209fca45008">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>"None"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>0</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-52b14480482420dfc3d2ebee6c2e51dd">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>"Silver"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>0.05</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-63e5cfb46b1cd48af8d3ef7d0232a459">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>"Gold"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>0.1</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>
