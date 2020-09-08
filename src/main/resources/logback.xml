@@ -9,7 +9,7 @@
     </encoder>
   </appender>
 
-  <logger name="org.drools.examples" level="info"/>
+  <logger name="com.signavio.examples" level="info"/>
 
   <root level="info">
     <appender-ref ref="consoleAppender" />

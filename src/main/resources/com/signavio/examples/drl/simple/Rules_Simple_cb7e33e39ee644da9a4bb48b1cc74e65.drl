@@ -1,0 +1,347 @@
+package com.signavio.examples.drl.simple
+
+import java.time.OffsetTime
+import java.util.Arrays
+import org.slf4j.Logger
+import java.text.DecimalFormat
+import org.slf4j.LoggerFactory
+import com.signavio.dmn.formulae.v3.IndexedListElement
+import java.util.ArrayList
+import java.util.HashSet
+import java.math.BigDecimal
+import java.util.List
+import java.time.OffsetDateTime
+import com.signavio.dmn.formulae.v3.DmnHierarchyFormulae
+import java.time.LocalDate
+import com.signavio.dmn.formulae.v3.DmnFormulae
+import java.util.Collections
+import java.math.RoundingMode
+
+global String modelId
+global Integer revisionNumber
+global List $allMessages
+global Logger $logger
+
+declare  DmnFormulae 
+end
+
+declare  DmnFormulaeLocal  extends  DmnFormulae  
+end
+
+declare  DmnHierarchyFormulae 
+end
+
+declare  IndexedListElement 
+end
+
+declare  AnnotationItem 
+    decision : String  
+    annotationName : String  
+    ruleName : String  
+    category : AnnotationCategory  
+    message : String  
+    timestamp : OffsetDateTime  
+end
+
+declare  Input 
+    customerYears : BigDecimal  
+    customerLevel : String  
+end
+
+declare  CalculateDiscountBasedOnYears  extends  IndexedListElement  
+    calculateDiscountBasedOnYears : BigDecimal  
+end
+
+declare  CalculateDiscountBasedOnYears_Output 
+    calculateDiscountBasedOnYears : BigDecimal  
+end
+
+declare  CalculateTotalDiscount_Output 
+    calculateTotalDiscount : BigDecimal  
+end
+
+declare  CalculateDiscountBasedOnLevel  extends  IndexedListElement  
+    calculateDiscountBasedOnLevel : BigDecimal  
+end
+
+declare  CalculateDiscountBasedOnLevel_Output 
+    calculateDiscountBasedOnLevel : BigDecimal  
+end
+
+declare enum AnnotationCategory
+	INFO,CRITICAL,REGULATION,POLICY;
+end
+
+rule "initialize_version_info"
+    no-loop true
+    salience 1000
+when
+then
+	drools.getWorkingMemory().setGlobal("modelId", "cb7e33e39ee644da9a4bb48b1cc74e65");
+	drools.getWorkingMemory().setGlobal("revisionNumber", 1);
+end
+
+rule "initialize_annotations_list"
+    no-loop true
+    salience 1000
+when
+then
+	drools.getWorkingMemory().setGlobal("$allMessages", new ArrayList());
+end
+
+rule "add_formulae_to_memory"
+    no-loop true
+    salience 1000
+when
+then
+	insert(new DmnFormulaeLocal());
+	insert(new DmnHierarchyFormulae());
+end
+
+rule "init_logger"
+    no-loop true
+    salience 1000
+when
+then
+	drools.getWorkingMemory().setGlobal("$logger", LoggerFactory.getLogger("DroolsExecution"));
+end
+
+rule "log_input_rule"
+    no-loop true
+    salience 999
+when
+    $input : Input(  )  
+then
+	$logger.info($input.toString());
+end
+
+rule "calculateDiscountBasedOnYears_rule_1"
+    no-loop true
+    //decision:  calculateDiscountBasedOnYears
+    salience 4
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )  
+    not( 
+    CalculateDiscountBasedOnYears_Output(  )   ) 
+    $input : Input(  )  
+    eval( $F.nullSafeEval(($F.greaterThanOrEqualTo($input.getCustomerYears(), BigDecimal.valueOf(5.0)))) ) 
+then
+	CalculateDiscountBasedOnYears $calculateDiscountBasedOnYears = new CalculateDiscountBasedOnYears();
+	$calculateDiscountBasedOnYears.setCalculateDiscountBasedOnYears(BigDecimal.valueOf(0.05));
+	$calculateDiscountBasedOnYears.setIndex(0);
+	insert($calculateDiscountBasedOnYears);
+end
+
+rule "calculateDiscountBasedOnYears_rule_2"
+    no-loop true
+    //decision:  calculateDiscountBasedOnYears
+    salience 3
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )  
+    not( 
+    CalculateDiscountBasedOnYears_Output(  )   ) 
+    $input : Input(  )  
+    eval( $F.nullSafeEval(($F.greaterThanOrEqualTo($input.getCustomerYears(), BigDecimal.valueOf(10.0)))) ) 
+then
+	CalculateDiscountBasedOnYears $calculateDiscountBasedOnYears = new CalculateDiscountBasedOnYears();
+	$calculateDiscountBasedOnYears.setCalculateDiscountBasedOnYears(BigDecimal.valueOf(0.05));
+	$calculateDiscountBasedOnYears.setIndex(1);
+	insert($calculateDiscountBasedOnYears);
+end
+
+rule "calculateDiscountBasedOnYears_rule_3"
+    no-loop true
+    //decision:  calculateDiscountBasedOnYears
+    salience 2
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )  
+    not( 
+    CalculateDiscountBasedOnYears_Output(  )   ) 
+    $input : Input(  )  
+    eval( $F.nullSafeEval(($F.greaterThanOrEqualTo($input.getCustomerYears(), BigDecimal.valueOf(20.0)))) ) 
+then
+	CalculateDiscountBasedOnYears $calculateDiscountBasedOnYears = new CalculateDiscountBasedOnYears();
+	$calculateDiscountBasedOnYears.setCalculateDiscountBasedOnYears(BigDecimal.valueOf(0.05));
+	$calculateDiscountBasedOnYears.setIndex(2);
+	insert($calculateDiscountBasedOnYears);
+end
+
+rule "calculateDiscountBasedOnYears_rule_4"
+    no-loop true
+    //decision:  calculateDiscountBasedOnYears
+    salience 1
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )  
+    not( 
+    CalculateDiscountBasedOnYears_Output(  )   ) 
+    $input : Input(  )  
+then
+	CalculateDiscountBasedOnYears $calculateDiscountBasedOnYears = new CalculateDiscountBasedOnYears();
+	$calculateDiscountBasedOnYears.setCalculateDiscountBasedOnYears(BigDecimal.valueOf(0.0));
+	$calculateDiscountBasedOnYears.setIndex(3);
+	insert($calculateDiscountBasedOnYears);
+end
+
+rule "calculateDiscountBasedOnYears_aggregation"
+    no-loop true
+    //decision:  calculateDiscountBasedOnYears
+    salience 0
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )  
+    not( 
+    CalculateDiscountBasedOnYears_Output(  )   ) 
+    $input : Input(  )  
+    $all_CalculateDiscountBasedOnYears : List(  ) from collect( CalculateDiscountBasedOnYears(  )  ) 
+then
+	CalculateDiscountBasedOnYears_Output $calculateDiscountBasedOnYears_Output = new CalculateDiscountBasedOnYears_Output();
+	$all_CalculateDiscountBasedOnYears = $F.internalSortedByIndex($all_CalculateDiscountBasedOnYears);
+	List $all_calculateDiscountBasedOnYears = new ArrayList();
+	for (int $i = 0; $i < $all_CalculateDiscountBasedOnYears.size(); $i++) {
+		CalculateDiscountBasedOnYears $eachRuleOutput = (CalculateDiscountBasedOnYears) $all_CalculateDiscountBasedOnYears.get($i);
+		$all_calculateDiscountBasedOnYears.add( $eachRuleOutput.getCalculateDiscountBasedOnYears() );
+	}
+	$calculateDiscountBasedOnYears_Output.setCalculateDiscountBasedOnYears($F.sum($all_calculateDiscountBasedOnYears));
+	insert($calculateDiscountBasedOnYears_Output);
+end
+
+rule "calculateDiscountBasedOnYears_cleanup_rule_output"
+    no-loop true
+    //decision:  calculateDiscountBasedOnYears
+    salience 2
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )  
+    CalculateDiscountBasedOnYears_Output(  )  
+    $calculateDiscountBasedOnYears : CalculateDiscountBasedOnYears(  )  
+then
+	retract($calculateDiscountBasedOnYears);
+end
+
+rule "calculateTotalDiscount"
+    no-loop true
+    //decision:  calculateTotalDiscount
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )  
+    not( 
+    CalculateTotalDiscount_Output(  )   ) 
+    $input : Input(  )  
+    $calculateDiscountBasedOnYears_Output : CalculateDiscountBasedOnYears_Output(  )  
+    $calculateDiscountBasedOnLevel_Output : CalculateDiscountBasedOnLevel_Output(  )  
+then
+	CalculateTotalDiscount_Output $calculateTotalDiscount_Output = new CalculateTotalDiscount_Output();
+	$calculateTotalDiscount_Output.setCalculateTotalDiscount(($F.plus($calculateDiscountBasedOnLevel_Output.getCalculateDiscountBasedOnLevel(), $calculateDiscountBasedOnYears_Output.getCalculateDiscountBasedOnYears())));
+	insert($calculateTotalDiscount_Output);
+end
+
+rule "calculateDiscountBasedOnLevel_rule_1"
+    no-loop true
+    //decision:  calculateDiscountBasedOnLevel
+    salience 1
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )  
+    not( 
+    CalculateDiscountBasedOnLevel_Output(  )   ) 
+    not( 
+    CalculateDiscountBasedOnLevel(  )   ) 
+    $input : Input(  )  
+    eval( $F.nullSafeEval($F.equals($input.getCustomerLevel(), "None")) ) 
+then
+	CalculateDiscountBasedOnLevel $calculateDiscountBasedOnLevel = new CalculateDiscountBasedOnLevel();
+	$calculateDiscountBasedOnLevel.setCalculateDiscountBasedOnLevel(BigDecimal.valueOf(0.0));
+	$calculateDiscountBasedOnLevel.setIndex(0);
+	insert($calculateDiscountBasedOnLevel);
+end
+
+rule "calculateDiscountBasedOnLevel_rule_2"
+    no-loop true
+    //decision:  calculateDiscountBasedOnLevel
+    salience 1
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )  
+    not( 
+    CalculateDiscountBasedOnLevel_Output(  )   ) 
+    not( 
+    CalculateDiscountBasedOnLevel(  )   ) 
+    $input : Input(  )  
+    eval( $F.nullSafeEval($F.equals($input.getCustomerLevel(), "Silver")) ) 
+then
+	CalculateDiscountBasedOnLevel $calculateDiscountBasedOnLevel = new CalculateDiscountBasedOnLevel();
+	$calculateDiscountBasedOnLevel.setCalculateDiscountBasedOnLevel(BigDecimal.valueOf(0.05));
+	$calculateDiscountBasedOnLevel.setIndex(1);
+	insert($calculateDiscountBasedOnLevel);
+end
+
+rule "calculateDiscountBasedOnLevel_rule_3"
+    no-loop true
+    //decision:  calculateDiscountBasedOnLevel
+    salience 1
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )  
+    not( 
+    CalculateDiscountBasedOnLevel_Output(  )   ) 
+    not( 
+    CalculateDiscountBasedOnLevel(  )   ) 
+    $input : Input(  )  
+    eval( $F.nullSafeEval($F.equals($input.getCustomerLevel(), "Gold")) ) 
+then
+	CalculateDiscountBasedOnLevel $calculateDiscountBasedOnLevel = new CalculateDiscountBasedOnLevel();
+	$calculateDiscountBasedOnLevel.setCalculateDiscountBasedOnLevel(BigDecimal.valueOf(0.1));
+	$calculateDiscountBasedOnLevel.setIndex(2);
+	insert($calculateDiscountBasedOnLevel);
+end
+
+rule "calculateDiscountBasedOnLevel_singleResultOutput"
+    no-loop true
+    //decision:  calculateDiscountBasedOnLevel
+    salience 0
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )  
+    not( 
+    CalculateDiscountBasedOnLevel_Output(  )   ) 
+    $input : Input(  )  
+    $calculateDiscountBasedOnLevel : CalculateDiscountBasedOnLevel(  )  
+then
+	CalculateDiscountBasedOnLevel_Output $calculateDiscountBasedOnLevel_Output = new CalculateDiscountBasedOnLevel_Output();
+	$calculateDiscountBasedOnLevel_Output.setCalculateDiscountBasedOnLevel($calculateDiscountBasedOnLevel.getCalculateDiscountBasedOnLevel());
+	retract($calculateDiscountBasedOnLevel);
+	insert($calculateDiscountBasedOnLevel_Output);
+end
+
+rule "calculateDiscountBasedOnLevel_emptyResultFallBack"
+    no-loop true
+    //decision:  calculateDiscountBasedOnLevel
+    salience -1
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )  
+    not( 
+    CalculateDiscountBasedOnLevel_Output(  )   ) 
+    $input : Input(  )  
+then
+	CalculateDiscountBasedOnLevel_Output $calculateDiscountBasedOnLevel_Output = new CalculateDiscountBasedOnLevel_Output();
+	$calculateDiscountBasedOnLevel_Output.setCalculateDiscountBasedOnLevel(null);
+	insert($calculateDiscountBasedOnLevel_Output);
+end
+
+rule "calculateDiscountBasedOnLevel_cleanup_rule_output"
+    no-loop true
+    //decision:  calculateDiscountBasedOnLevel
+    salience 2
+when
+    $F : DmnFormulaeLocal(  )  
+    $H : DmnHierarchyFormulae(  )  
+    CalculateDiscountBasedOnLevel_Output(  )  
+    $calculateDiscountBasedOnLevel : CalculateDiscountBasedOnLevel(  )  
+then
+	retract($calculateDiscountBasedOnLevel);
+end

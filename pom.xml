@@ -2,19 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.drools</groupId>
-    <artifactId>droolsjbpm-integration</artifactId>
-    <version>7.42.0.Final</version>
-  </parent>
 
-  <artifactId>droolsjbpm-integration-examples</artifactId>
+  <artifactId>dmn-and-drools-execution-examples</artifactId>
 
-  <name>Drools and jBPM examples</name>
-  <description>Examples for Drools Expert, Fusion and/or jBPM.</description>
+  <name>Signavio DMN and Drools Execution Examples</name>
+  <description>Examples for how to execute Drools and DMN files exported from Signavio, using KIE/Drools execution libraries.</description>
 
   <properties>
-    <java.module.name>org.droolsjbpm.integration.examples</java.module.name>
+    <java.module.name>com.signavio.examples</java.module.name>
   </properties>
 
   <dependencies>
@@ -31,23 +26,9 @@
       <groupId>org.drools</groupId>
       <artifactId>drools-compiler</artifactId>
     </dependency>
-    <!--<dependency>-->
-      <!--<groupId>org.drools</groupId>-->
-      <!--<artifactId>drools-simulator</artifactId>-->
-    <!--</dependency>-->
     <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-flow-builder</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>joda-time</groupId>
-      <artifactId>joda-time</artifactId>
-    </dependency>
-    <!-- Needed for logging -->
-    <dependency>
-      <groupId>com.thoughtworks.xstream</groupId>
-      <artifactId>xstream</artifactId>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-dmn-signavio</artifactId>
     </dependency>
 
     <!-- Logging -->
@@ -55,21 +36,13 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
     </dependency>
-
-    <!-- Examples only dependencies. -->
-    <!--
-      WARNING: every examples only dependency must be properly dealt with in
-      droolsjbpm-integration-distribution/src/main/assembly/assembly-droolsjbpm-integration.xml
-    -->
+    <dependency>
+      <groupId>com.thoughtworks.xstream</groupId>
+      <artifactId>xstream</artifactId>
+    </dependency>
     <dependency><!-- For example app logging: configure in src/java/resources/logback.xml -->
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.kie</groupId>
-      <artifactId>kie-dmn-signavio</artifactId>
-      <version>7.42.0.Final</version>
     </dependency>
 
   </dependencies>
