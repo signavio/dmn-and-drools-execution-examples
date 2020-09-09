@@ -4,14 +4,14 @@ import java.util.List;
 
 import com.signavio.bdm.testlab.exchange.TestCase;
 import com.signavio.bdm.testlab.exchange.TestSuite;
-import com.signavio.examples.dmn.TestSuiteUtil;
+import com.signavio.examples.TestSuiteUtil;
 import com.signavio.examples.dmn.testsuite.TestResult;
 import org.apache.commons.lang3.tuple.Pair;
 import org.kie.api.runtime.KieSession;
 
-import static com.signavio.examples.dmn.TestSuiteUtil.getInputNames;
-import static com.signavio.examples.dmn.TestSuiteUtil.getOutputName;
-import static com.signavio.examples.dmn.TestSuiteUtil.getParameterValue;
+import static com.signavio.examples.TestSuiteUtil.getInputNames;
+import static com.signavio.examples.TestSuiteUtil.getOutputName;
+import static com.signavio.examples.TestSuiteUtil.getParameterValue;
 import static com.signavio.examples.dmn.testsuite.TestResult.failure;
 import static com.signavio.examples.dmn.testsuite.TestResult.success;
 import static java.util.stream.Collectors.toList;
@@ -23,7 +23,7 @@ public class DrlWithTestCasesExample extends AbstractDrlExample {
 	
 	@Override
 	public void execute() {
-		TestSuite testSuite = TestSuiteUtil.readTestSuite();
+		TestSuite testSuite = TestSuiteUtil.readTestSuite("drl");
 		List<TestResult> testResults = executeTestCases(testSuite);
 		testResults.forEach(System.out::println);
 	}

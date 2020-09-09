@@ -1,4 +1,4 @@
-package com.signavio.examples.dmn;
+package com.signavio.examples;
 
 import java.io.InputStream;
 import java.util.List;
@@ -31,8 +31,8 @@ public class TestSuiteUtil {
 	}
 	
 	
-	public static TestSuite readTestSuite() {
-		InputStream testSuiteStream = TestSuiteUtil.class.getResourceAsStream("simple/Simple-TestLab.json");
+	public static TestSuite readTestSuite(String basePackage) {
+		InputStream testSuiteStream = TestSuiteUtil.class.getResourceAsStream(basePackage + "/simple/Simple-TestLab.json");
 		return new TestSuiteReader().parse(testSuiteStream);
 	}
 	
