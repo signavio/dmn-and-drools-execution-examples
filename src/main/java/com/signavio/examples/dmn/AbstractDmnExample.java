@@ -1,5 +1,7 @@
 package com.signavio.examples.dmn;
 
+import java.util.Collection;
+
 import org.apache.commons.lang3.tuple.Pair;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
@@ -9,8 +11,11 @@ import org.kie.dmn.api.core.DMNResult;
 import org.kie.dmn.api.core.DMNRuntime;
 
 import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toList;
 
 public abstract class AbstractDmnExample {
+	
+	private DMNRuntime dmnRuntime = createDmnRuntime();
 	
 	
 	public abstract void execute();
@@ -22,7 +27,7 @@ public abstract class AbstractDmnExample {
 	 * The runtime contains information about all dmn models that where parsed from .dmn files and that are available
 	 * for execution.
 	 */
-	protected DMNRuntime createDmnRuntime() {
+	private DMNRuntime createDmnRuntime() {
 		KieContainer kieClasspathContainer = KieServices.Factory.get().getKieClasspathContainer();
 		return kieClasspathContainer
 				.newKieSession("SignavioExampleDMNSimpleKS")
@@ -30,15 +35,25 @@ public abstract class AbstractDmnExample {
 	}
 	
 	
+	protected DMNRuntime getDmnRuntime() {
+		return dmnRuntime;
+	}
+	
+	
 	/**
 	 * Creates a new DmnContext that contains information about the input values that should be used during the
 	 * execution of the dmn model.
 	 */
-	protected DMNContext createDmnContext(DMNRuntime dmnRuntime, Pair<String, Object>... fieldNamesToValues) {
-		DMNContext dmnContext = dmnRuntime.newContext();
+	protected DMNContext createDmnContext(Pair<String, Object>... inputs) {
+		return createDmnContext(stream(inputs).collect(toList()));
+	}
+	
+	
+	protected DMNContext createDmnContext(Collection<Pair<String, Object>> inputs) {
+		DMNContext dmnContext = getDmnRuntime().newContext();
 		
 		// setting values for inputs
-		stream(fieldNamesToValues).forEach(pair -> dmnContext.set(pair.getKey(), pair.getValue()));
+		inputs.forEach(inputValue -> dmnContext.set(inputValue.getKey(), inputValue.getValue()));
 		
 		return dmnContext;
 	}
