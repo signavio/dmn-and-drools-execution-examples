@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+  <repositories>
+    <repository>
+      <id>mvn_central</id>
+      <name>Maven Central</name>
+      <url>	https://repo1.maven.org/maven2/</url>
+    </repository>
+  </repositories>
+
   <modelVersion>4.0.0</modelVersion>
 
+  <groupId>com.signavio.examples</groupId>
   <artifactId>dmn-and-drools-execution-examples</artifactId>
+  <version>1.0.0</version>
 
   <name>Signavio DMN and Drools Execution Examples</name>
   <description>Examples for how to execute Drools and DMN files exported from Signavio, using KIE/Drools execution libraries.</description>
@@ -13,6 +23,37 @@
   </properties>
 
   <dependencies>
+    <!-- json processing -->
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.8.6</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20200518</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.11.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.11.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
+    </dependency>
+
     <!-- Internal dependencies -->
     <dependency>
       <groupId>org.kie</groupId>
