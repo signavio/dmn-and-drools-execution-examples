@@ -1,21 +1,14 @@
 package com.signavio.examples;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;
-import org.kie.api.command.Command;
-import org.kie.api.command.KieCommands;
 import org.kie.api.definition.type.FactType;
-import org.kie.api.runtime.ExecutionResults;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.StatelessKieSession;
 import org.kie.dmn.api.core.DMNContext;
 import org.kie.dmn.api.core.DMNDecisionResult;
 import org.kie.dmn.api.core.DMNModel;
@@ -33,27 +26,67 @@ public class SignavioExample {
 	
 	
 	private static void executeDmnXml() {
+		// parsing the model from .dmn
+		DMNRuntime dmnRuntime = createDmnRuntime();
+		DMNModel model = dmnRuntime.getModels().get(0); // assuming there is only one model in the KieBase
+		
+		// setting input data
+		DMNContext dmnContext = createDmnContext(dmnRuntime);
+		
+		// executing the decision logic
+		DMNResult topLevelResult = dmnRuntime.evaluateAll(model, dmnContext);
+		
+		// retrieving the execution results
+		System.out.println("--- top level results ---");
+		handleResult(topLevelResult);
+		
+		// retrieve intermediate results
+		System.out.println("--- intermediate results ---");
+		DMNResult lowerLevelResult = dmnRuntime.evaluateByName(model, dmnContext, "calculateDiscountBasedOnYears");
+		handleResult(lowerLevelResult);
+	}
+	
+	
+	/**
+	 * Handles the result to use the data collected during the dmn execution.
+	 */
+	private static void handleResult(DMNResult decisionResult) {
+		decisionResult.getDecisionResults().forEach(SignavioExample::printResult);
+		System.out.println();
+	}
+	
+	
+	private static void printResult(DMNDecisionResult decisionResult) {
+		System.out.println("Decision '" + decisionResult.getDecisionName() + "' : " + decisionResult.getResult());
+	}
+	
+	
+	/**
+	 * Creates a DMNRuntime based on the configuration given in kmodule.xml.
+	 * <p>
+	 * The runtime contains information about all dmn models that where parsed from .dmn files and that are available
+	 * for execution.
+	 */
+	private static DMNRuntime createDmnRuntime() {
 		KieContainer kieClasspathContainer = KieServices.Factory.get().getKieClasspathContainer();
-		DMNRuntime dmnRuntime = kieClasspathContainer
+		return kieClasspathContainer
 				.newKieSession("SignavioExampleDMNSimpleKS")
 				.getKieRuntime(DMNRuntime.class);
-		List<DMNModel> models = dmnRuntime.getModels();
-		DMNModel model = models.get(0); // assuming there is only one model in the KieBase
-		
+	}
+	
+	
+	/**
+	 * Creates a new DmnContext that contains information about the input values that should be used during the
+	 * execution of the dmn model.
+	 */
+	private static DMNContext createDmnContext(DMNRuntime dmnRuntime) {
 		DMNContext dmnContext = dmnRuntime.newContext();
+		
+		// setting values for inputs
 		dmnContext.set("customerLevel", "Silver");
 		dmnContext.set("customerYears", 15);
 		
-		DMNResult topLevelResult = dmnRuntime.evaluateAll(model, dmnContext);
-		DMNResult lowerLevelResult =
-				dmnRuntime.evaluateByName(model, dmnContext, "calculateDiscountBasedOnYears");
-		for (DMNDecisionResult dr : topLevelResult.getDecisionResults()) {
-			System.out.println("Decision '" + dr.getDecisionName() + "' : " + dr.getResult());
-		}
-		for (DMNDecisionResult dr : lowerLevelResult.getDecisionResults()) {
-			System.out.println("Decision '" + dr.getDecisionName() + "' : " + dr.getResult());
-		}
-		
+		return dmnContext;
 	}
 	
 	
@@ -74,7 +107,7 @@ public class SignavioExample {
 	}
 	
 	
-	private static Object createInput(KieBase kieBase, Pair<String, Object>...fieldNamesToValues)
+	private static Object createInput(KieBase kieBase, Pair<String, Object>... fieldNamesToValues)
 			throws InstantiationException, IllegalAccessException {
 		FactType inputType = kieBase.getFactType("com.signavio.examples.drl.simple", "Input");
 		Object input = inputType.newInstance();
