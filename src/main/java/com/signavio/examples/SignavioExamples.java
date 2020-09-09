@@ -1,8 +1,8 @@
 package com.signavio.examples;
 
 import com.signavio.examples.dmn.SignavioDmnExample;
-import com.signavio.examples.drl.SignavioDrlExample;
-import com.signavio.examples.drl.SignavioDrlWithOwnTypesExample;
+import com.signavio.examples.drl.SimpleDrlExample;
+import com.signavio.examples.drl.OwnTypesDrlExample;
 
 public class SignavioExamples {
 	
@@ -11,10 +11,10 @@ public class SignavioExamples {
 		new SignavioDmnExample().execute();
 		
 		System.out.println("\n\n=== DROOLS EXECUTION ===\n\n");
-		new SignavioDrlExample().execute();
+		new SimpleDrlExample().execute();
 		
 		System.out.println("\n\n=== DROOLS EXECUTION WITH OWN TYPE ===\n\n");
-		new SignavioDrlWithOwnTypesExample().execute();
+		new OwnTypesDrlExample().execute();
 	}
 	
 	
