@@ -1,6 +1,7 @@
 package com.signavio.examples;
 
 import java.math.BigDecimal;
+import java.util.function.Consumer;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -15,28 +16,31 @@ import org.kie.dmn.api.core.DMNModel;
 import org.kie.dmn.api.core.DMNResult;
 import org.kie.dmn.api.core.DMNRuntime;
 
+import static java.util.Arrays.stream;
+
 public class SignavioExample {
 	
 	public static void main(String[] args) throws IllegalAccessException, InstantiationException {
 		System.out.println("\n\n=== DMN EXECUTION ===\n\n");
 		executeDmnXml();
+		
 		System.out.println("\n\n=== DROOLS EXECUTION ===\n\n");
 		executeDrools();
 	}
 	
 	
 	private static void executeDmnXml() {
-		// parsing the model from .dmn
+		// parsing model from .dmn
 		DMNRuntime dmnRuntime = createDmnRuntime();
 		DMNModel model = dmnRuntime.getModels().get(0); // assuming there is only one model in the KieBase
 		
 		// setting input data
 		DMNContext dmnContext = createDmnContext(dmnRuntime);
 		
-		// executing the decision logic
+		// executing decision logic
 		DMNResult topLevelResult = dmnRuntime.evaluateAll(model, dmnContext);
 		
-		// retrieving the execution results
+		// retrieving execution results
 		System.out.println("--- top level results ---");
 		handleResult(topLevelResult);
 		
@@ -93,27 +97,42 @@ public class SignavioExample {
 	private static void executeDrools() throws InstantiationException, IllegalAccessException {
 		KieServices kieServices = KieServices.Factory.get();
 		KieContainer kieClasspathContainer = kieServices.getKieClasspathContainer();
+		KieSession ksession = kieClasspathContainer.newKieSession("SignavioExampleDroolsSimpleKS");
 		
+		// creating input object
 		Object input = createInput(
 				kieClasspathContainer.getKieBase("SignavioExampleDroolsSimpleKB"),
 				ImmutablePair.of("customerLevel", "Silver"),
 				ImmutablePair.of("customerYears", new BigDecimal(15)));
 		
-		KieSession ksession = kieClasspathContainer.newKieSession("SignavioExampleDroolsSimpleKS");
+		// setting input values
 		ksession.insert(input);
+		
+		// executing decision logic
 		ksession.fireAllRules();
+		
+		// retrieving execution results
 		ksession.getObjects().forEach(object -> System.out.println(object.getClass().getSimpleName() + ": " + object));
+		
+		// cleaning up
 		ksession.dispose();
 	}
 	
 	
+	/**
+	 * Creates a new Input object that contains information about the input values that should be used during the
+	 * execution of the drl file.
+	 */
 	private static Object createInput(KieBase kieBase, Pair<String, Object>... fieldNamesToValues)
 			throws InstantiationException, IllegalAccessException {
+		// creating input object defined in the .drl file
 		FactType inputType = kieBase.getFactType("com.signavio.examples.drl.simple", "Input");
 		Object input = inputType.newInstance();
-		for (Pair<String, Object> fieldNameToValue : fieldNamesToValues) {
-			inputType.set(input, fieldNameToValue.getLeft(), fieldNameToValue.getRight());
-		}
+		
+		// setting all given values to there respective fields
+		Consumer<Pair<String, Object>> inputSetter = pair -> inputType.set(input, pair.getKey(), pair.getValue());
+		stream(fieldNamesToValues).forEach(inputSetter);
+		
 		return input;
 	}
 	
