@@ -48,7 +48,10 @@ public abstract class AbstractDmnExample {
 		return createDmnContext(stream(inputs).collect(toList()));
 	}
 	
-	
+	/**
+	 * Creates a new DmnContext that contains information about the input values that should be used during the
+	 * execution of the dmn model.
+	 */
 	protected DMNContext createDmnContext(Collection<Pair<String, Object>> inputs) {
 		DMNContext dmnContext = getDmnRuntime().newContext();
 		

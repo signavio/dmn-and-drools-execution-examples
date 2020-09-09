@@ -5,7 +5,6 @@ import java.util.List;
 import com.signavio.bdm.testlab.exchange.TestCase;
 import com.signavio.bdm.testlab.exchange.TestSuite;
 import com.signavio.examples.dmn.testsuite.TestResult;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.kie.dmn.api.core.DMNContext;
 import org.kie.dmn.api.core.DMNDecisionResult;
@@ -19,7 +18,6 @@ import static com.signavio.examples.dmn.TestSuiteUtil.readTestSuite;
 import static com.signavio.examples.dmn.testsuite.TestResult.failure;
 import static com.signavio.examples.dmn.testsuite.TestResult.success;
 import static java.util.stream.Collectors.toList;
-import static java.util.stream.IntStream.range;
 
 public class DmnWithTestCasesExample extends AbstractDmnExample {
 	
@@ -68,28 +66,11 @@ public class DmnWithTestCasesExample extends AbstractDmnExample {
 	
 	
 	private DMNContext createDmnContextFromTestCase(TestCase testCase, List<String> inputNames) {
-		List<Pair<String, Object>> inputs = getInputs(
+		List<Pair<String, Object>> inputs = TestSuiteUtil.getInputs(
 				testCase,
 				inputNames
 		);
 		return createDmnContext(inputs);
 	}
-	
-	
-	private List<Pair<String, Object>> getInputs(TestCase testCase, List<String> orderedInputNames) {
-		List<Object> inputValues = getInputValues(testCase);
-		
-		return range(0, orderedInputNames.size())
-				.mapToObj(index -> ImmutablePair.of(orderedInputNames.get(index), inputValues.get(index)))
-				.collect(toList());
-	}
-	
-	
-	private List<Object> getInputValues(TestCase testCase) {
-		return testCase.getInputParameters().stream()
-				.map(TestSuiteUtil::getParameterValue)
-				.collect(toList());
-	}
-	
 	
 }

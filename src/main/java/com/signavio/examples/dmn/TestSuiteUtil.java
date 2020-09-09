@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.signavio.bdm.testlab.exchange.DefaultParameter;
 import com.signavio.bdm.testlab.exchange.ParameterDefinition;
+import com.signavio.bdm.testlab.exchange.TestCase;
 import com.signavio.bdm.testlab.exchange.TestSuite;
 import com.signavio.bdm.testlab.exchange.types.BooleanParameter;
 import com.signavio.bdm.testlab.exchange.types.DateParameter;
@@ -14,10 +15,13 @@ import com.signavio.bdm.testlab.exchange.types.NumberParameter;
 import com.signavio.bdm.testlab.exchange.types.TextParameter;
 import com.signavio.bdm.testlab.exchange.types.TimeParameter;
 import com.signavio.examples.dmn.testsuite.TestSuiteReader;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import static com.google.common.base.CaseFormat.LOWER_CAMEL;
 import static com.google.common.base.CaseFormat.UPPER_CAMEL;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.IntStream.range;
 import static org.apache.commons.lang.WordUtils.capitalize;
 
 // TODO this is the uggly part
@@ -66,6 +70,22 @@ public class TestSuiteUtil {
 			default:
 				throw new RuntimeException("Not supported in this example.");
 		}
+	}
+	
+	
+	public static List<Pair<String, Object>> getInputs(TestCase testCase, List<String> orderedInputNames) {
+		List<Object> inputValues = getInputValues(testCase);
+		
+		return range(0, orderedInputNames.size())
+				.mapToObj(index -> ImmutablePair.of(orderedInputNames.get(index), inputValues.get(index)))
+				.collect(toList());
+	}
+	
+	
+	private static List<Object> getInputValues(TestCase testCase) {
+		return testCase.getInputParameters().stream()
+				.map(TestSuiteUtil::getParameterValue)
+				.collect(toList());
 	}
 	
 	
