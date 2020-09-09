@@ -15,8 +15,11 @@ public abstract class AbstractDrlExample {
 	private final KieContainer kieClasspathContainer = KieServices.Factory.get().getKieClasspathContainer();
 	
 	
+	public abstract void execute();
+	
+	
 	/**
-	 * Creates a new kie session based on the configuration in modules.xml
+	 * Creates a new kie session based on the configuration in kmodules.xml
 	 */
 	protected KieSession newKieSession() {
 		return kieClasspathContainer.newKieSession("SignavioExampleDroolsSimpleKS");

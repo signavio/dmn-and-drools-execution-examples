@@ -10,6 +10,7 @@ public class SimpleDrlExample extends AbstractDrlExample {
 	private static final String PACKAGE_NAME = "com.signavio.examples.drl.simple";
 	
 	
+	@Override
 	public void execute() {
 		KieSession ksession = newKieSession();
 		

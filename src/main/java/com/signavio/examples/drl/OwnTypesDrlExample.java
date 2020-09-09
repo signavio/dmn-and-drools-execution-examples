@@ -11,6 +11,7 @@ public class OwnTypesDrlExample extends AbstractDrlExample {
 	private static final String PACKAGE_NAME = "com.signavio.examples.drl.owntypes";
 	
 	
+	@Override
 	public void execute() {
 		KieSession ksession = newKieSession();
 		
