@@ -6,10 +6,14 @@ import com.signavio.examples.drl.DrlSandbox;
 import com.signavio.examples.drl.DrlWithTestCasesExample;
 import com.signavio.examples.drl.OwnTypesDrlExample;
 import com.signavio.examples.drl.SimpleDrlExample;
+import com.signavio.examples.drl.DynamicSandboxDrlExample;
 
 public class SignavioExamples {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		System.out.println("\n\n=== DYNAMIC DROOLS EXECUTION ===\n\n");
+		new DynamicSandboxDrlExample().execute();
+		
 		System.out.println("\n\n=== DMN EXECUTION ===\n\n");
 		new SimpleDmnExample().execute();
 		
