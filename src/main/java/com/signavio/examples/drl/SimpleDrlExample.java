@@ -8,6 +8,12 @@ import org.kie.api.runtime.KieSession;
 public class SimpleDrlExample extends AbstractDrlExample {
 	
 	private static final String PACKAGE_NAME = "com.signavio.examples.drl.simple";
+	private static final String SESSION_ID = "SignavioExampleDroolsSimpleKS";
+	
+	
+	public SimpleDrlExample() {
+		super(SESSION_ID, PACKAGE_NAME);
+	}
 	
 	
 	@Override
@@ -16,7 +22,6 @@ public class SimpleDrlExample extends AbstractDrlExample {
 		
 		// creating input object
 		Object input = createInput(
-				PACKAGE_NAME,
 				ImmutablePair.of("customerLevel", "Silver"),
 				ImmutablePair.of("customerYears", new BigDecimal(15)));
 		

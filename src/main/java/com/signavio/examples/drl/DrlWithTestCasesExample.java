@@ -19,6 +19,12 @@ import static java.util.stream.Collectors.toList;
 public class DrlWithTestCasesExample extends AbstractDrlExample {
 	
 	private static final String PACKAGE_NAME = "com.signavio.examples.drl.simple";
+	private static final String SESSION_ID = "SignavioExampleDroolsSimpleKS";
+	
+	
+	public DrlWithTestCasesExample() {
+		super(SESSION_ID, PACKAGE_NAME);
+	}
 	
 	
 	@Override
@@ -41,13 +47,13 @@ public class DrlWithTestCasesExample extends AbstractDrlExample {
 	
 	private TestResult executeTestCase(TestCase testCase, List<String> inputs, String output) {
 		// creating input object
+		KieSession ksession = newKieSession();
+		
 		List<Pair<String, Object>> inputValues = TestSuiteUtil.getInputs(testCase, inputs);
+		
 		Object input = createInput(
-				PACKAGE_NAME,
 				inputValues
 		);
-		
-		KieSession ksession = newKieSession();
 		
 		// setting input values
 		ksession.insert(input);
@@ -57,7 +63,7 @@ public class DrlWithTestCasesExample extends AbstractDrlExample {
 		
 		// retrieving execution results
 		Comparable expectedOutput = getParameterValue(testCase.getExpectedParameter());
-		Object actualOutput = getOutput(ksession, PACKAGE_NAME, output);
+		Object actualOutput = getOutput(output);
 		
 		// cleaning up
 		ksession.dispose();

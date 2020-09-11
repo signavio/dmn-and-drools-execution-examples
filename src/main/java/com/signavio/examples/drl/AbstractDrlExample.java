@@ -17,6 +17,15 @@ import static java.util.stream.Collectors.toList;
 public abstract class AbstractDrlExample {
 	
 	private final KieContainer kieClasspathContainer = KieServices.Factory.get().getKieClasspathContainer();
+	private final String kieSessionId;
+	private final String packageName;
+	private KieSession kieSession;
+	
+	
+	public AbstractDrlExample(String kieSessionId, String packageName) {
+		this.kieSessionId = kieSessionId;
+		this.packageName = packageName;
+	}
 	
 	
 	public abstract void execute();
@@ -26,12 +35,8 @@ public abstract class AbstractDrlExample {
 	 * Creates a new kie session based on the configuration in kmodules.xml
 	 */
 	protected KieSession newKieSession() {
-		return kieClasspathContainer.newKieSession("SignavioExampleDroolsSimpleKS");
-	}
-	
-	
-	protected KieSession newKieSession(String sessionId) {
-		return kieClasspathContainer.newKieSession(sessionId);
+		kieSession = kieClasspathContainer.newKieSession(kieSessionId);
+		return kieSession;
 	}
 	
 	
@@ -39,8 +44,8 @@ public abstract class AbstractDrlExample {
 	 * Creates a new Input object that contains information about the input values that should be used during the
 	 * execution of the drl file.
 	 */
-	protected Object createInput(String packageName, Pair<String, Object>... inputs) {
-		return createInput(packageName, stream(inputs).collect(toList()));
+	protected Object createInput(Pair<String, Object>... inputs) {
+		return createInput(stream(inputs).collect(toList()));
 	}
 	
 	
@@ -48,10 +53,10 @@ public abstract class AbstractDrlExample {
 	 * Creates a new Input object that contains information about the input values that should be used during the
 	 * execution of the drl file.
 	 */
-	protected Object createInput(String packageName, List<Pair<String, Object>> inputs) {
+	protected Object createInput(List<Pair<String, Object>> inputs) {
 		try {
 			// creating input object defined in the .drl file
-			FactType inputType = getInputFactType(packageName);
+			FactType inputType = getInputFactType();
 			Object input = inputType.newInstance();
 			
 			// setting all given values to there respective fields
@@ -64,23 +69,23 @@ public abstract class AbstractDrlExample {
 	}
 	
 	
-	protected Object getOutput(KieSession ksession, String packageName, String outputName) {
-		FactType outputType = getOutputFactType(packageName, StringUtils.capitalize(outputName));
-		Collection<?> outputs = ksession.getObjects(new ClassObjectFilter(outputType.getFactClass()));
+	protected Object getOutput(String outputName) {
+		FactType outputType = getOutputFactType(StringUtils.capitalize(outputName));
+		Collection<?> outputs = kieSession.getObjects(new ClassObjectFilter(outputType.getFactClass()));
 		return outputs.stream()
 				.map(output -> outputType.get(output, outputName))
 				.findFirst().orElse(null);
 	}
 	
 	
-	private FactType getInputFactType(String packageName) {
-		return kieClasspathContainer.getKieBase("SignavioExampleDroolsSimpleKB")
+	private FactType getInputFactType() {
+		return kieSession.getKieBase()
 				.getFactType(packageName, "Input");
 	}
 	
 	
-	private FactType getOutputFactType(String packageName, String outputName) {
-		return kieClasspathContainer.getKieBase("SignavioExampleDroolsSimpleKB")
+	private FactType getOutputFactType(String outputName) {
+		return kieSession.getKieBase()
 				.getFactType(packageName, outputName + "_Output");
 	}
 	

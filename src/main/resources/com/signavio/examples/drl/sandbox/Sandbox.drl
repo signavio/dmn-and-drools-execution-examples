@@ -115,13 +115,7 @@ when
     not( 
     SomeCalculation_Output(  )   )
 
-// THIS IS MISSING
-    not(
-       SomeCalculation( index == 0 )
-    )
-    // ---------------
-
-    $input : Input(  )  
+    $input : Input(  )
     eval( $F.nullSafeEval(($F.lessThan($input.getANumber(), BigDecimal.valueOf(10.0)))) ) 
 then
 	SomeCalculation $someCalculation = new SomeCalculation();
@@ -144,12 +138,6 @@ when
     not(
         SomeCalculation_Output(  )
     )
-
-    // THIS IS MISSING
-        not(
-           SomeCalculation( index == 1 )
-        )
-        // ---------------
 
     $input : Input(  )
 then
