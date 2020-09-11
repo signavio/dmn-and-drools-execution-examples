@@ -30,6 +30,11 @@ public abstract class AbstractDrlExample {
 	}
 	
 	
+	protected KieSession newKieSession(String sessionId) {
+		return kieClasspathContainer.newKieSession(sessionId);
+	}
+	
+	
 	/**
 	 * Creates a new Input object that contains information about the input values that should be used during the
 	 * execution of the drl file.

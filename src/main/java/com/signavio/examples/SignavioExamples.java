@@ -2,6 +2,7 @@ package com.signavio.examples;
 
 import com.signavio.examples.dmn.DmnWithTestCasesExample;
 import com.signavio.examples.dmn.SimpleDmnExample;
+import com.signavio.examples.drl.DrlSandbox;
 import com.signavio.examples.drl.DrlWithTestCasesExample;
 import com.signavio.examples.drl.OwnTypesDrlExample;
 import com.signavio.examples.drl.SimpleDrlExample;
@@ -23,6 +24,9 @@ public class SignavioExamples {
 		
 		System.out.println("\n\n=== DROOLS EXECUTION WITH TEST CASES ===\n\n");
 		new DrlWithTestCasesExample().execute();
+		
+		System.out.println("\n\n=== DROOLS EXECUTION SANDBOX ===\n\n");
+		new DrlSandbox().execute();
 	}
 	
 	

@@ -4,10 +4,11 @@
         <property key="org.kie.dmn.profiles.signavio" value="org.kie.dmn.signavio.KieDMNSignavioProfile"/>
     </configuration>
 
-    <kbase name="SignavioExampleDroolsSimpleKB" packages="com.signavio.examples.drl.simple, com.signavio.examples.drl.owntypes">
+    <kbase name="SignavioExampleDroolsSimpleKB" packages="com.signavio.examples.drl.simple, com.signavio.examples.drl.owntypes, com.signavio.examples.drl.sandbox">
         <ksession name="SignavioExampleDroolsSimpleKS"/>
         <ksession name="SignavioExampleDroolsSimpleStatelessKS" type="stateless"/>
         <ksession name="SignavioExampleDroolsOwnTypesKS"/>
+        <ksession name="SignavioExampleDroolsSandboxKS"/>
     </kbase>
     <kbase name="SignavioExampleDroolsWithTestLabCasesKB" packages="com.signavio.examples.drl.withtestlabcases">
         <ksession name="SignavioExampleDroolsWithTestLabCasesKS"/>
