@@ -69,32 +69,39 @@
     <dependency>
       <groupId>org.kie</groupId>
       <artifactId>kie-api</artifactId>
+      <version>7.43.1.Final</version>
     </dependency>
     <dependency>
       <groupId>org.drools</groupId>
       <artifactId>drools-core</artifactId>
+      <version>7.43.1.Final</version>
     </dependency>
     <dependency>
       <groupId>org.drools</groupId>
       <artifactId>drools-compiler</artifactId>
+      <version>7.43.1.Final</version>
     </dependency>
     <dependency>
       <groupId>org.kie</groupId>
       <artifactId>kie-dmn-signavio</artifactId>
+      <version>7.43.1.Final</version>
     </dependency>
 
     <!-- Logging -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
+      <version>1.7.30</version>
     </dependency>
     <dependency>
       <groupId>com.thoughtworks.xstream</groupId>
       <artifactId>xstream</artifactId>
+      <version>1.4.13</version>
     </dependency>
     <dependency><!-- For example app logging: configure in src/java/resources/logback.xml -->
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
+      <version>1.2.3</version>
     </dependency>
 
   </dependencies>
