@@ -242,3 +242,23 @@ to the first defined input definition.
 ]
 ``` 
 In our examples we use the bdm-test-suite-api library to handle the .json files.
+
+## Sandbox Workflow
+The sandbox is available to get a quick feedback loop in case one wanna try out specific .drl files.
+
+##### Export
+In order to get it running, the first step is to export the desired DMN model as a .drl file in the
+Signavio Process Manager.
+
+##### Pasting the .drl file
+The next step is to copy the exported .drl file into the already available
+com/signavio/examples/drl/sandbox/Sandbox.drl file.
+The exported artefacts package definition does not match the one needed in this example project, therefore you have to
+manually adjust the package in the .drl file to
+```drools
+package com.signavio.examples.drl.sandbox
+```
+
+##### Executing
+Open the file com.signavio.examples.drl.DrlSandbox and adjust the inputs to the ones needed in your .drl file.
+Afterwards you can trigger the SignavioExamples.java to run all examples (including the sandbox).
