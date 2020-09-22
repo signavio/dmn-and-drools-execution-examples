@@ -1,4 +1,4 @@
-package com.signavio.examples.drl.sandbox
+package com.signavio.examples.drl.dynamic
 
 import java.time.OffsetTime
 import java.util.Arrays
