@@ -20,5 +20,9 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Install Testsuite API
+      run: mvn install:install-file –Dfile=..\lib\bdm-test-suite-api-1.0-SNAPSHOT.jar -DgroupId=com.signavio -DartifactId=test-suite-api -Dversion=1.0-SNAPSHOT
+    - name: Install Formulae
+      run: mvn install:install-file –Dfile=..\lib\dmn-formulae-java8-1.1.jar -DgroupId=com.signavio -DartifactId=dmn-formulae-java8 -Dversion=1.1
     - name: Build with Maven
       run: mvn -B package --file pom.xml
