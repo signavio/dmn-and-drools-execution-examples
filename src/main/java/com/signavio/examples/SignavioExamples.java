@@ -13,19 +13,19 @@ public class SignavioExamples {
 	public static void main(String[] args) throws Exception {
 		System.out.println("\n\n=== DYNAMIC DROOLS EXECUTION ===\n\n");
 		new DynamicSandboxDrlExample().execute();
-		
+
 		System.out.println("\n\n=== DMN EXECUTION ===\n\n");
 		new SimpleDmnExample().execute();
-		
+
 		System.out.println("\n\n=== DMN EXECUTION WITH TESTCASES ===\n\n");
 		new DmnWithTestCasesExample().execute();
-		
+
 		System.out.println("\n\n=== DROOLS EXECUTION ===\n\n");
 		new SimpleDrlExample().execute();
-		
+
 		System.out.println("\n\n=== DROOLS EXECUTION WITH OWN TYPE ===\n\n");
 		new OwnTypesDrlExample().execute();
-		
+
 		System.out.println("\n\n=== DROOLS EXECUTION WITH TEST CASES ===\n\n");
 		new DrlWithTestCasesExample().execute();
 		

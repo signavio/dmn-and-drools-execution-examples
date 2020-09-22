@@ -13,7 +13,8 @@ public class DynamicSandboxDrlExample {
 	public void execute() throws Exception {
 		
 		// passing a string
-		String drlString = IOUtils.toString(getClass().getClassLoader().getResource("Sandbox.drl"), StandardCharsets.UTF_8);
+		String drlString = IOUtils.toString(getClass().getClassLoader().getResource(
+				"com/signavio/examples/drl/dynamic/Sandbox.drl"), StandardCharsets.UTF_8);
 		
 		List<BigDecimal> result = (List<BigDecimal>) new KieExecutionWrapper()
 				.drlString(drlString)
@@ -23,7 +24,7 @@ public class DynamicSandboxDrlExample {
 		System.out.println("Calculation result (string): " + result);
 		
 		// passing a file path
-		String drlFilePath = getClass().getClassLoader().getResource("Sandbox.drl").getPath();
+		String drlFilePath = getClass().getClassLoader().getResource("com/signavio/examples/drl/dynamic/Sandbox.drl").getPath();
 		
 		result = (List<BigDecimal>) new KieExecutionWrapper()
 				.drlFilePath(drlFilePath)
