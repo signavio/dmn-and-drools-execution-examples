@@ -323,7 +323,7 @@ Export
 To get it running, the first step is to export the desired DMN model as a Drools or .dmn file in the
 Signavio Process Manager.
 
-Pasting the files content
+Pasting the file content
 ---------------------
 The next step is to copy the content of the exported file into the already available
 ``com/signavio/examples/drl/sandbox/Sandbox.drl`` file (for Drools files) or
