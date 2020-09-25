@@ -77,6 +77,8 @@ For the execution of .dmn files, the following examples exist
 
 * **DmnWithTestCasesExample** additionally executes a set of test cases exported from the Signavio Test Lab
 
+* **DmnSandbox** lets you play around with different .dmn files (this example is **NOT** using the DMN diagram mentioned above)
+
 Signavio Artifacts
 ==================
 .dmn
@@ -314,19 +316,20 @@ In our examples, we use the ``bdm-test-suite-api`` library to handle the .json f
 
 Sandbox Workflow
 ===============
-The sandbox is available to get a quick feedback loop in case one wanna try out specific .drl files.
+The sandbox is available to get a quick feedback loop in case one wanna try out specific Drools or .dmn files.
 
 Export
 ------
-To get it running, the first step is to export the desired DMN model as a .drl file in the
+To get it running, the first step is to export the desired DMN model as a Drools or .dmn file in the
 Signavio Process Manager.
 
-Pasting the .drl file
+Pasting the files content
 ---------------------
-The next step is to copy the exported .drl file into the already available
-``com/signavio/examples/drl/sandbox/Sandbox.drl`` file.
-The exported artifacts package definition does not match the one needed in this example project, therefore you have to
-manually adjust the package in the .drl file to
+The next step is to copy the content of the exported file into the already available
+``com/signavio/examples/drl/sandbox/Sandbox.drl`` file (for Drools files) or
+``com/signavio/examples/dmn/sandbox/Sandbox.dmn`` file (for .dmn files).
+In case you want to execute a Drools file the exported artifacts package definition does not match the one needed in
+this example project, therefore you have to manually adjust the package in the Drools file to
 
 .. code-block:: java
   
@@ -334,7 +337,8 @@ manually adjust the package in the .drl file to
 
 Executing
 ----------
-Open the file com.signavio.examples.drl.DrlSandbox and adjust the inputs to the ones needed in your .drl file.
+Open either com.signavio.examples.drl.DrlSandbox or com.signavio.examples.drl.DmnSandbox and adjust the inputs to the
+ones needed in your example.
 Afterward, you can trigger the SignavioExamples.java to run all examples (including the sandbox).
 
 .. |Build| image:: https://github.com/signavio/dmn-and-drools-execution-examples/workflows/Java%20CI%20with%20Maven/badge.svg

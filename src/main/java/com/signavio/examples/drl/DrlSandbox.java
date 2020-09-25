@@ -23,7 +23,11 @@ public class DrlSandbox extends AbstractDrlExample {
 		
 		// creating input object
 		Object input = createInput(
-				ImmutablePair.of("aNumber", new BigDecimal(5)));
+				ImmutablePair.of("age", new BigDecimal(32))
+		);
+		
+		// defining the desired output
+		String outputName = "isLegalAge";
 		
 		// setting input values
 		ksession.insert(input);
@@ -32,7 +36,8 @@ public class DrlSandbox extends AbstractDrlExample {
 		ksession.fireAllRules();
 		
 		// retrieving execution results
-		ksession.getObjects().forEach(System.out::println);
+		System.out.println("Results:");
+		printAsJson(getOutput(outputName));
 		
 		// cleaning up
 		ksession.dispose();

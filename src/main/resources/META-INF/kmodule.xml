@@ -17,10 +17,9 @@
     <kbase name="SignavioExampleDMNSimpleKB" packages="com.signavio.examples.dmn.simple">
         <ksession name="SignavioExampleDMNSimpleKS"/>
     </kbase>
-    <kbase name="SignavioExampleDMNOwnTypesKB" packages="com.signavio.examples.dmn.owntypes">
-        <ksession name="SignavioExampleDMNOwnTypesKS"/>
+
+    <kbase name="SignavioExampleDMNSandboxKB" packages="com.signavio.examples.dmn.sandbox">
+        <ksession name="SignavioExampleDMNSandboxKS"/>
     </kbase>
-    <kbase name="SignavioExampleDMNWithTestLabCasesKB" packages="com.signavio.examples.dmn.withtestlabcases">
-        <ksession name="SignavioExampleDMNWithTestLabCasesKS"/>
-    </kbase>
+
 </kmodule>

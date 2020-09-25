@@ -22,6 +22,11 @@ import static java.util.stream.Collectors.toList;
 
 public class DmnWithTestCasesExample extends AbstractDmnExample {
 	
+	public DmnWithTestCasesExample() {
+		super("SignavioExampleDMNSimpleKB");
+	}
+	
+	
 	@Override
 	public void execute() {
 		// parsing model from .dmn
