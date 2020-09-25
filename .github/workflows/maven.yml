@@ -23,4 +23,4 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Execute example Drools/DMN files
-      run: java -jar ./target/dmn-and-drools-execution-examples-1.0.0.jar
+      run: mvn exec:java
