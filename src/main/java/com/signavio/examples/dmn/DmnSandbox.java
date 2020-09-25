@@ -2,13 +2,14 @@ package com.signavio.examples.dmn;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.kie.dmn.api.core.DMNContext;
+import org.kie.dmn.api.core.DMNDecisionResult;
 import org.kie.dmn.api.core.DMNModel;
 import org.kie.dmn.api.core.DMNResult;
 
-public class SimpleDmnExample extends AbstractDmnExample {
+public class DmnSandbox extends AbstractDmnExample {
 	
-	public SimpleDmnExample() {
-		super("SignavioExampleDMNSimpleKB");
+	public DmnSandbox() {
+		super("SignavioExampleDMNSandboxKB");
 	}
 	
 	
@@ -19,21 +20,17 @@ public class SimpleDmnExample extends AbstractDmnExample {
 		
 		// setting input data
 		DMNContext dmnContext = createDmnContext(
-				ImmutablePair.of("customerLevel", "Silver"),
-				ImmutablePair.of("customerYears", 15)
+				ImmutablePair.of("age", 32)
 		);
 		
 		// executing decision logic
 		DMNResult topLevelResult = getDmnRuntime().evaluateAll(model, dmnContext);
 		
 		// retrieving execution results
-		System.out.println("--- top level results ---");
-		handleResult(topLevelResult);
+		System.out.println("Results:");
+		topLevelResult.getDecisionResults().stream()
+				.map(DMNDecisionResult::getResult)
+				.forEach(this::printAsJson);
 		
-		// retrieve intermediate results
-		System.out.println("--- intermediate results ---");
-		DMNResult lowerLevelResult = getDmnRuntime().evaluateByName(model, dmnContext, "calculateDiscountBasedOnYears");
-		handleResult(lowerLevelResult);
 	}
-	
 }

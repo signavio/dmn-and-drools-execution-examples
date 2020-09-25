@@ -2,6 +2,8 @@ package com.signavio.examples.dmn;
 
 import java.util.Collection;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.tuple.Pair;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
@@ -15,7 +17,12 @@ import static java.util.stream.Collectors.toList;
 
 public abstract class AbstractDmnExample {
 	
-	private DMNRuntime dmnRuntime = createDmnRuntime();
+	private DMNRuntime dmnRuntime;
+	
+	
+	public AbstractDmnExample(String knowledgeBaseId) {
+		dmnRuntime = createDmnRuntime(knowledgeBaseId);
+	}
 	
 	
 	public abstract void execute();
@@ -27,10 +34,11 @@ public abstract class AbstractDmnExample {
 	 * The runtime contains information about all dmn models that where parsed from .dmn files and that are available
 	 * for execution.
 	 */
-	private DMNRuntime createDmnRuntime() {
+	private DMNRuntime createDmnRuntime(String knowledgeBaseId) {
 		KieContainer kieClasspathContainer = KieServices.Factory.get().getKieClasspathContainer();
 		return kieClasspathContainer
-				.newKieSession("SignavioExampleDMNSimpleKS")
+				.getKieBase(knowledgeBaseId)
+				.newKieSession()
 				.getKieRuntime(DMNRuntime.class);
 	}
 	
@@ -47,6 +55,7 @@ public abstract class AbstractDmnExample {
 	protected DMNContext createDmnContext(Pair<String, Object>... inputs) {
 		return createDmnContext(stream(inputs).collect(toList()));
 	}
+	
 	
 	/**
 	 * Creates a new DmnContext that contains information about the input values that should be used during the
@@ -73,6 +82,14 @@ public abstract class AbstractDmnExample {
 	
 	private void printResult(DMNDecisionResult decisionResult) {
 		System.out.println("Decision '" + decisionResult.getDecisionName() + "' : " + decisionResult.getResult());
+	}
+	
+	protected void printAsJson(Object result) {
+		try {
+			System.out.println(new ObjectMapper().writeValueAsString(result));
+		} catch (JsonProcessingException e) {
+			System.err.println(result);
+		}
 	}
 	
 }

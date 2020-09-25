@@ -22,40 +22,37 @@ global Integer revisionNumber
 global List $allMessages
 global Logger $logger
 
-declare  DmnFormulae 
+declare  DmnFormulae
 end
 
-declare  DmnFormulaeLocal  extends  DmnFormulae  
+declare  DmnFormulaeLocal  extends  DmnFormulae
 end
 
-declare  DmnHierarchyFormulae 
+declare  DmnHierarchyFormulae
 end
 
-declare  IndexedListElement 
+declare  IndexedListElement
 end
 
-declare  AnnotationItem 
-    decision : String  
-    annotationName : String  
-    ruleName : String  
-    category : AnnotationCategory  
-    message : String  
-    timestamp : OffsetDateTime  
+declare  AnnotationItem
+    decision : String
+    annotationName : String
+    ruleName : String
+    category : AnnotationCategory
+    message : String
+    timestamp : OffsetDateTime
 end
 
-declare  Input 
-    aNumber : BigDecimal  
+declare  Input
+    age : BigDecimal
 end
 
-declare  SomeCalculation  extends  IndexedListElement  
-    firstMultiple : BigDecimal  
-    inWords : String  
+declare  IsLegalAge  extends  IndexedListElement
+    isLegalAge : Boolean
 end
 
-declare  SomeCalculation_Output 
-    someCalculation : List  
-    firstMultiple : List  
-    inWords : List  
+declare  IsLegalAge_Output
+    isLegalAge : Boolean
 end
 
 declare enum AnnotationCategory
@@ -67,7 +64,7 @@ rule "initialize_version_info"
     salience 1000
 when
 then
-	drools.getWorkingMemory().setGlobal("modelId", "ae1e455091d74bda9936ecb89214de08");
+	drools.getWorkingMemory().setGlobal("modelId", "bf6b811c3e0c47bb942818b4005c80c3");
 	drools.getWorkingMemory().setGlobal("revisionNumber", 1);
 end
 
@@ -100,96 +97,94 @@ rule "log_input_rule"
     no-loop true
     salience 999
 when
-    $input : Input(  )  
+    $input : Input(  )
 then
 	$logger.info($input.toString());
 end
 
-rule "someCalculation_rule_1"
+rule "isLegalAge_rule_1"
     no-loop true
-    //decision:  someCalculation
-    salience 2
-when
-    $F : DmnFormulaeLocal(  )  
-    $H : DmnHierarchyFormulae(  )  
-    not( 
-    SomeCalculation_Output(  )   )
-
-    $input : Input(  )
-    eval( $F.nullSafeEval(($F.lessThan($input.getANumber(), BigDecimal.valueOf(10.0)))) ) 
-then
-	SomeCalculation $someCalculation = new SomeCalculation();
-	$someCalculation.setFirstMultiple(($F.multiply($input.getANumber(), BigDecimal.valueOf(2.0))));
-	$someCalculation.setInWords($F.concat(Arrays.asList( new Object[] {$F.text($input.getANumber(), "##.#"), " * 2"})));
-	$someCalculation.setIndex(0);
-	insert($someCalculation);
-	$logger.info("Rule someCalculation_rule1 fired:");
-	$logger.info("	Inputs: " + $input.getANumber());
-	$logger.info("	Outputs: " + $someCalculation.getFirstMultiple() + ", " + $someCalculation.getInWords());
-end
-
-rule "someCalculation_rule_2"
-    no-loop true
-    //decision:  someCalculation
+    //decision:  isLegalAge
     salience 1
 when
-    $F : DmnFormulaeLocal(  )  
+    $F : DmnFormulaeLocal(  )
     $H : DmnHierarchyFormulae(  )
     not(
-        SomeCalculation_Output(  )
-    )
-
+    IsLegalAge_Output(  )   )
+    not(
+    IsLegalAge(  )   )
     $input : Input(  )
+    eval( $F.nullSafeEval(($F.lessThan($input.getAge(), BigDecimal.valueOf(18.0)))) )
 then
-	SomeCalculation $someCalculation = new SomeCalculation();
-	$someCalculation.setFirstMultiple(($F.multiply($input.getANumber(), BigDecimal.valueOf(4.0))));
-	$someCalculation.setInWords($F.concat(Arrays.asList( new Object[] {$F.text($input.getANumber(), "##.###"), " * 4"})));
-	$someCalculation.setIndex(1);
-	insert($someCalculation);
-	$logger.info("Rule someCalculation_rule2 fired:");
-	$logger.info("	Inputs: " + $input.getANumber());
-	$logger.info("	Outputs: " + $someCalculation.getFirstMultiple() + ", " + $someCalculation.getInWords());
+	IsLegalAge $isLegalAge = new IsLegalAge();
+	$isLegalAge.setIsLegalAge(false);
+	$isLegalAge.setIndex(0);
+	insert($isLegalAge);
 end
 
-rule "someCalculation_aggregation"
+rule "isLegalAge_rule_2"
     no-loop true
-    //decision:  someCalculation
+    //decision:  isLegalAge
+    salience 1
+when
+    $F : DmnFormulaeLocal(  )
+    $H : DmnHierarchyFormulae(  )
+    not(
+    IsLegalAge_Output(  )   )
+    not(
+    IsLegalAge(  )   )
+    $input : Input(  )
+    eval( $F.nullSafeEval(($F.greaterThanOrEqualTo($input.getAge(), BigDecimal.valueOf(18.0)))) )
+then
+	IsLegalAge $isLegalAge = new IsLegalAge();
+	$isLegalAge.setIsLegalAge(true);
+	$isLegalAge.setIndex(1);
+	insert($isLegalAge);
+end
+
+rule "isLegalAge_singleResultOutput"
+    no-loop true
+    //decision:  isLegalAge
     salience 0
 when
-    $F : DmnFormulaeLocal(  )  
-    $H : DmnHierarchyFormulae(  )  
-    not( 
-    SomeCalculation_Output(  )   ) 
-    $input : Input(  )  
-    $all_SomeCalculation : List(  ) from collect( SomeCalculation(  )  ) 
+    $F : DmnFormulaeLocal(  )
+    $H : DmnHierarchyFormulae(  )
+    not(
+    IsLegalAge_Output(  )   )
+    $input : Input(  )
+    $isLegalAge : IsLegalAge(  )
 then
-	SomeCalculation_Output $someCalculation_Output = new SomeCalculation_Output();
-	$all_SomeCalculation = $F.internalSortedByIndex($all_SomeCalculation);
-	List $all_inWords = new ArrayList();
-	List $all_firstMultiple = new ArrayList();
-	for (int $i = 0; $i < $all_SomeCalculation.size(); $i++) {
-		SomeCalculation $eachRuleOutput = (SomeCalculation) $all_SomeCalculation.get($i);
-		$all_inWords.add( $eachRuleOutput.getInWords() );
-		$all_firstMultiple.add( $eachRuleOutput.getFirstMultiple() );
-	}
-	$someCalculation_Output.setInWords($all_inWords);
-	$someCalculation_Output.setFirstMultiple($all_firstMultiple);
-	$someCalculation_Output.setSomeCalculation($all_SomeCalculation);
-	insert($someCalculation_Output);
-	$logger.info("Aggregation rule fired for decision 'someCalculation'[sid-3F3750D1-7BEE-406A-A79D-265C050A1118]:");
-	$logger.info("	Outputs: " + $someCalculation_Output.toString());
+	IsLegalAge_Output $isLegalAge_Output = new IsLegalAge_Output();
+	$isLegalAge_Output.setIsLegalAge($isLegalAge.getIsLegalAge());
+	retract($isLegalAge);
+	insert($isLegalAge_Output);
 end
 
-rule "someCalculation_cleanup_rule_output"
+rule "isLegalAge_emptyResultFallBack"
     no-loop true
-    //decision:  someCalculation
+    //decision:  isLegalAge
+    salience -1
+when
+    $F : DmnFormulaeLocal(  )
+    $H : DmnHierarchyFormulae(  )
+    not(
+    IsLegalAge_Output(  )   )
+    $input : Input(  )
+then
+	IsLegalAge_Output $isLegalAge_Output = new IsLegalAge_Output();
+	$isLegalAge_Output.setIsLegalAge(null);
+	insert($isLegalAge_Output);
+end
+
+rule "isLegalAge_cleanup_rule_output"
+    no-loop true
+    //decision:  isLegalAge
     salience 2
 when
-    $F : DmnFormulaeLocal(  )  
-    $H : DmnHierarchyFormulae(  )  
-    SomeCalculation_Output(  )  
-    $someCalculation : SomeCalculation(  )  
+    $F : DmnFormulaeLocal(  )
+    $H : DmnHierarchyFormulae(  )
+    IsLegalAge_Output(  )
+    $isLegalAge : IsLegalAge(  )
 then
-	retract($someCalculation);
-	$logger.info("Clean up rule output for decision 'someCalculation'[sid-3F3750D1-7BEE-406A-A79D-265C050A1118]:");
+	retract($isLegalAge);
 end

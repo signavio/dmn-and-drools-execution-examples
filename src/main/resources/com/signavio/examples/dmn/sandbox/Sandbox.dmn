@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.signavio.com/dmn/1.1/diagram/bf6b811c3e0c47bb942818b4005c80c3.xml" exporterVersion="14.6.1" name="Sandbox" id="id-15ece22c91b04474a0f85bc93e289311" sigExt:revisionId="a390f8c22ea24a14b273862e4194e631" sigExt:revisionNumber="1" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.signavio.com/dmn/1.1/diagram/bf6b811c3e0c47bb942818b4005c80c3.xml" xmlns:sigExt="http://www.signavio.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+    <extensionElements>
+        <sigExt:diagramMetaData name="mytable" value=""/>
+        <sigExt:diagramMetaData name="jirareference" value=""/>
+        <sigExt:diagramMetaData name="playbookreference" value=""/>
+        <sigExt:diagramMetaData name="mapowner3" value=""/>
+        <sigExt:diagramMetaData name="foobar" value=""/>
+        <sigExt:diagramMetaData name="dmntestattribute" value=""/>
+    </extensionElements>
+    <itemDefinition isCollection="false" name="isLegalAge2" id="id-80340a72813c714600f18806d8ba78a2" label="is legal age">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="isLegalAge" id="id-d16739ffbd0cb9c870b7c37e3c113ab9" label="is legal age">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="age" id="id-e666b1dbb06180f7c16b93c9c02960a7" label="age">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <inputData name="age" id="id-722b22998270ffb6ad765ff7bd448c77" label="age" sigExt:shapeId="sid-985D1140-7E02-428E-BC22-72554E83F47D" sigExt:diagramId="bf6b811c3e0c47bb942818b4005c80c3">
+        <extensionElements>
+            <sigExt:diagramMetaData name="mytable" value=""/>
+        </extensionElements>
+        <variable typeRef="sig:age" name="age" id="id-722b22998270ffb6ad765ff7bd448c77_variable"/>
+    </inputData>
+    <decision name="isLegalAge" id="id-143772fe011c50bf764955c0e59e589c" label="is legal age" sigExt:shapeId="sid-9197060C-F1C7-4662-9E50-3F7A27910E77" sigExt:diagramId="bf6b811c3e0c47bb942818b4005c80c3">
+        <extensionElements>
+            <sigExt:diagramMetaData name="jirareference" value=""/>
+        </extensionElements>
+        <variable typeRef="sig:isLegalAge" name="isLegalAge" id="id-143772fe011c50bf764955c0e59e589c_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-722b22998270ffb6ad765ff7bd448c77"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-3f9bd0bb92ea0c8706ea3589f6f8fe9f" label="age">
+                <inputExpression>
+                    <text>age</text>
+                </inputExpression>
+            </input>
+            <output name="isLegalAge" typeRef="sig:isLegalAge2" id="id-6d584639dc6e6f5c0be9db1f87641ae0" label="is legal age"/>
+            <rule id="id-f7c1cec2c072f316cc3374d5daf9c228">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&lt; 18</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>false</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-6fb4afd4603fbc40d4507fdce0a55d5e">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&gt;= 18</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>true</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>

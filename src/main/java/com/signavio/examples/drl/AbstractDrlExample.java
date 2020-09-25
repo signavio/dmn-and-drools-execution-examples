@@ -3,6 +3,8 @@ package com.signavio.examples.drl;
 import java.util.Collection;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.kie.api.KieServices;
@@ -87,6 +89,14 @@ public abstract class AbstractDrlExample {
 	private FactType getOutputFactType(String outputName) {
 		return kieSession.getKieBase()
 				.getFactType(packageName, outputName + "_Output");
+	}
+	
+	protected void printAsJson(Object result) {
+		try {
+			System.out.println(new ObjectMapper().writeValueAsString(result));
+		} catch (JsonProcessingException e) {
+			System.err.println(result);
+		}
 	}
 	
 }
