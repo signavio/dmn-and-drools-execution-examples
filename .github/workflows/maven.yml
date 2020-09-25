@@ -21,6 +21,6 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -q -B package --file pom.xml
     - name: Execute example Drools/DMN files
-      run: mvn exec:java -Dexec.mainClass="com.signavio.examples.SignavioExamples"
+      run: mvn -q exec:java -Dexec.mainClass="com.signavio.examples.SignavioExamples"
