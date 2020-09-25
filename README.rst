@@ -12,7 +12,7 @@ DMN & Drools Execution Example via Signavio
 
 **Disclaimer:**
 
-  This project is designed to showcase how the Signavio Process Manager exported artifacts can be used to actually execute the decision logic.
+  This project is designed to showcase how the Signavio Process Manager exported artifacts can be used to execute the decision logic.
   The execution engine we use in our examples is the one provided by RedHat (https://www.drools.org/).
   Please consult the documentation provided there for any engine specific questions.
 
@@ -44,7 +44,7 @@ Resources
 ----------
 
 All resources we use, mainly the decision logic in either .drl or .dmn form and
-the json files exported from the Signavio Test Lab, are stored in the resources folder under com.signavio.examples.
+the JSON files exported from the Signavio Test Lab, are stored in the resources folder under com.signavio.examples.
 
 To make the examples easier to understand, we use the following decision diagram in nearly all cases.
 
@@ -57,25 +57,25 @@ Examples
 All the examples we provide are located in there respective packages under 
 **com.signavio.examples.drl** and **com.signavio.examples.dmn** respectively.
 
-For the execution of .drl files the following examples exist
+For the execution of .drl files, the following examples exist
 
 * **SimpleDrlExample** shows the most basic form of setting input values and retrieving all the outputs
 
 * **OwnTypesDrlExample** makes use of classes external to the .drl file
 
-* **DrlWithTestCasesExample** additionally executes a set of testcases exported from the Signavio Test Lab
+* **DrlWithTestCasesExample** additionally executes a set of test cases exported from the Signavio Test Lab
 
 * **DynamicSandboxDrlExample** configures the knowledge base dynamically instead of using the kmodules.xml files for that (this example is **not** using the DMN diagram mentioned above)
 
-* **DrlSandbox** lets you play around with different .drl files (this example is **NOT** using the DMN diagram mentioned above)
+* **DrlSandbox** lets you play around with different Drools files (this example is **NOT** using the DMN diagram mentioned above)
 
 Both sandbox examples are using com/signavio/examples/drl/sandbox/Sandbox.drl as there source.
 
-For the execution of .dmn files the following examples exist
+For the execution of .dmn files, the following examples exist
 
 * **SimpleDmnExample** shows the most basic form of setting input values and retrieving outputs
 
-* **DmnWithTestCasesExample** additionally executes a set of testcases exported from the Signavio Test Lab
+* **DmnWithTestCasesExample** additionally executes a set of test cases exported from the Signavio Test Lab
 
 Signavio Artifacts
 ==================
@@ -85,10 +85,9 @@ When exporting DMN diagrams from the Signavio Process Manager as .dmn files you 
 the .dmn file itself.
 You can directly use this file as the source of your knowledge base.
 
-It is adviseable to have a look into the exported file because the Signavio Process Manager is uniquely naming all the 
-importent variables like input data. The information if something in the diagram was renamed because of unsupported 
-characters or duplicate names is needed to ensure that when setting input values or retrieving specific outputs the 
-correct value is used.
+It is advisable to have a look into the exported file because the Signavio Process Manager is uniquely naming all the important variables like input data. The information if something in the diagram was renamed because of unsupported 
+characters or duplicate names are needed to ensure that when setting input values or retrieving specific outputs the 
+the correct value is used.
 
 For example, in case you define two different input data and name them both **my value**, both of them will be renamed 
 to **myValue** and **myValue2** respectively.
@@ -96,10 +95,9 @@ to **myValue** and **myValue2** respectively.
 .drl
 -----
 When exporting DMN diagrams from the Signavio Process Manager as .drl files you will receive an archive containing the
-exported rules (.drl), a manifest file and a formulae .jar file.
+exported rules (.drl), a manifest file, and a formulae JAR file.
 
-Those artifacts serve different purposes during the execution. The .drl file is used as the source of your 
-knowledge base and describes the decision logic itself. The formulae .jar must be made available to the execution engine
+Those artifacts serve different purposes during the execution. The .drl file is used as the source of your knowledge base and describes the decision logic itself. The formulae .jar must be made available to the execution engine
 because it contains function definitions for the drools execution. Using the manifest file is optional but advised.
 
 General Workflow
@@ -142,18 +140,17 @@ create it via an API.
       return knowledgeBase.newKieSession();
   }
 
-This allows for a more dynamic way of configuring the knowledge base and supports usecases where the .drl and .dmn
+This allows for a more dynamic way of configuring the knowledge base and supports use-cases where the .drl and .dmn
 files are not present/available when triggering the application.
 
 Setting inputs
 ==============
 After retrieving a session from a configured knowledge base, the input values for the execution must be set.
-Depending on wether you want to execute a .drl or .dmn file, the way of setting those differs slightly.
+Depending on whether you want to execute a .drl or .dmn file, the way of setting those differs slightly.
 
 .dmn
 -----
-Setting input values for a .dmn file execution, named key-value pairs are past to a DMNContext that can be 
-retrieved from the session.
+Setting input values for a .dmn file execution, named key-value pairs are passed to a DMNContext that can be retrieved from the session.
 
 .. code-block:: java
 
@@ -171,7 +168,7 @@ retrieved from the session.
 -----
 
 Setting input values for a .drl file execution, the input objects must be constructed and inserted into the session.
-This is done by retrieving the type of the object (so called fact type), instantiating an object with that and setting
+This is done by retrieving the type of the object (so-called fact type), instantiating an object with that, and setting
 all the fields.
 
 .. code-block:: java
@@ -190,22 +187,22 @@ all the fields.
       throw new RuntimeException(e);
   }
 
-This object is afterwards inserted into the session by
+This object is afterward inserted into the session by
 
 .. code-block:: java
 
   ksession.insert(input);
 
-In order to figure out which fact types are available and which fields belong to them you can consult the manifest file
+To figure out which fact types are available and which fields belong to them you can consult the manifest file
 available inside the exported archive.
 
 Triggering the execution
 ========================
-In both cases, triggering the actual execution is realy simple.
+In both cases, triggering the actual execution is simple.
 
 .dmn
 ------
-In case of a .dmn file you trigger it by
+In case of a DMN file, you trigger it by
 
 .. code-block:: java
 
@@ -215,7 +212,7 @@ providing the model you want to evaluate (available in the session) and the prev
 
 .drl
 ------
-In case of a .drl file you can simply trigger the evaluation by
+In case of a .drl file, you can simply trigger the evaluation by
 
 .. code-block:: java
 
@@ -240,7 +237,7 @@ Important to note is that this result contains the intermediate results of all d
 
 .drl
 -----
-In case of a .drl file, the evaluation does not automatically return the result. In order to get access to it one can
+In the case of a Drools file, the evaluation does not automatically return the result. To get access to it one can
 retrieve all the available objects from the session.
 
 .. code-block:: java
@@ -252,10 +249,10 @@ types of objects.
 
 Test Suite Testcases
 =====================
-The Signavio Process Manager has the possibility to export testcases defined in the Signavio Test Suite.
+The Signavio Process Manager can export test cases defined in the Signavio Test Suite.
 The exported .json representation of the test case looks like the one provided in
 resources/com/signavio/examples/dmn/simple/Simple-TestLab.json.
-Those files basically contain a number of input definitions that can be used to figure out which inputs to set
+Those files contain several input definitions that can be used to figure out which inputs to set
 
 .. code-block:: json
 
@@ -276,7 +273,7 @@ Those files basically contain a number of input definitions that can be used to 
     }
   ]  
 
-and a number of output definitions in the same format. The ids provided in the file can be used to find the
+and some output definitions in the same format. The ids provided in the file can be used to find the
 corresponding input in the .dmn and .drl files.
 e.g.
 
@@ -285,7 +282,7 @@ e.g.
   <inputData name="customerLevel" sigExt:shapeId="sid-CE8F3937-3DA2-41AB-AF9C-B7F301C6D8E4" sigExt:diagramId="cb7e33e39ee644da9a4bb48b1cc74e65">
 
 
-Additionally, those files contain a number of testcases with there respective input values and the expected outputs.
+Additionally, those files contain several test cases with there respective input values and the expected outputs.
 The order of those values is the same as in the input definitions. Meaning the first defined input value corresponds
 to the first defined input definition.
 
@@ -313,7 +310,7 @@ to the first defined input definition.
     }
   ]
  
-In our examples we use the bdm-test-suite-api library to handle the .json files.
+In our examples, we use the ``bdm-test-suite-api`` library to handle the .json files.
 
 Sandbox Workflow
 ===============
@@ -321,14 +318,14 @@ The sandbox is available to get a quick feedback loop in case one wanna try out 
 
 Export
 ------
-In order to get it running, the first step is to export the desired DMN model as a .drl file in the
+To get it running, the first step is to export the desired DMN model as a .drl file in the
 Signavio Process Manager.
 
 Pasting the .drl file
 ---------------------
 The next step is to copy the exported .drl file into the already available
-com/signavio/examples/drl/sandbox/Sandbox.drl file.
-The exported artefacts package definition does not match the one needed in this example project, therefore you have to
+``com/signavio/examples/drl/sandbox/Sandbox.drl`` file.
+The exported artifacts package definition does not match the one needed in this example project, therefore you have to
 manually adjust the package in the .drl file to
 
 .. code-block:: java
@@ -338,7 +335,7 @@ manually adjust the package in the .drl file to
 Executing
 ----------
 Open the file com.signavio.examples.drl.DrlSandbox and adjust the inputs to the ones needed in your .drl file.
-Afterwards you can trigger the SignavioExamples.java to run all examples (including the sandbox).
+Afterward, you can trigger the SignavioExamples.java to run all examples (including the sandbox).
 
 .. |Build| image:: https://github.com/signavio/dmn-and-drools-execution-examples/workflows/Java%20CI%20with%20Maven/badge.svg
    :target: https://github.com/signavio/dmn-and-drools-execution-examples/actions?query=workflow%3A%22Java+CI+with+Maven%22
