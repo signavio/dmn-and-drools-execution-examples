@@ -9,9 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.drools.core.impl.InternalKnowledgeBase;
-import org.drools.core.impl.KnowledgeBaseFactory;
-import org.kie.api.KieBase;
 import org.kie.api.definition.KiePackage;
 import org.kie.api.definition.type.FactType;
 import org.kie.api.io.ResourceType;
@@ -31,17 +28,18 @@ public class KieExecutionWrapper {
 		}
 	}
 	
+	
 	public KieSessionWrapper drlString(String drlString) {
 		return new KieSessionWrapper(newKieSession(new StringReader(drlString)));
 	}
 	
+	
 	private KieSession newKieSession(Reader drlReader) {
-		InternalKnowledgeBase knowledgeBase = KnowledgeBaseFactory.newKnowledgeBase();
 		KnowledgeBuilder knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
 		knowledgeBuilder.add(ResourceFactory.newReaderResource(drlReader), ResourceType.DRL);
-		knowledgeBase.addPackages(knowledgeBuilder.getKnowledgePackages());
-		return knowledgeBase.newKieSession();
+		return knowledgeBuilder.newKieBase().newKieSession();
 	}
+	
 	
 	public static class KieSessionWrapper {
 		
@@ -53,10 +51,12 @@ public class KieExecutionWrapper {
 			this.kieSession = kieSession;
 		}
 		
+		
 		public KieSessionWrapper insert(String inputName, Object value) {
 			inputNamesToValues.put(inputName, value);
 			return this;
 		}
+		
 		
 		public Collection<?> execute() {
 			kieSession.insert(createInput());
@@ -65,6 +65,7 @@ public class KieExecutionWrapper {
 			// TODO dispose session?
 			return objects;
 		}
+		
 		
 		public Object execute(String outputName) {
 			kieSession.insert(createInput());
@@ -76,6 +77,7 @@ public class KieExecutionWrapper {
 					.map(object -> outputType.get(object, outputName))
 					.findFirst().orElse(null);
 		}
+		
 		
 		private Object createInput() {
 			try {
@@ -91,6 +93,7 @@ public class KieExecutionWrapper {
 				throw new RuntimeException(e);
 			}
 		}
+		
 		
 		private FactType getInputFactType() {
 			return kieSession.getKieBase().getFactType(getPackageName(), "Input");
