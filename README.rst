@@ -35,6 +35,7 @@ In order to allow the execution of the provided example, you first need to insta
 libs/dmn-formulae-java8-1.1.jar into your local maven repository. You can do so by executing the following commands:
 
 ``mvn install:install-file -Dfile=libs/bdm-test-suite-api-1.1.jar -DgroupId=com.signavio -DartifactId=bdm-testsuite-api -Dversion=1.1 -Dpackaging=jar``
+
 ``mvn install:install-file -Dfile=libs/dmn-formulae-java8-1.1.jar -DgroupId=com.signavio -DartifactId=dmn-formulae -Dversion=1.1 -Dpackaging=jar``
 
 Project Structure
