@@ -21,23 +21,23 @@ public class SignavioExamples {
 	
 	private static void executeDmnExamples() {
 		out.println("=== DMN EXECUTION ===");
-		executeWithHeadline(new SimpleDmnExample());
-		executeWithHeadline(new DmnWithTestCasesExample());
-		executeWithHeadline(new DmnSandbox());
+		executeExample(new SimpleDmnExample());
+		executeExample(new DmnWithTestCasesExample());
+		executeExample(new DmnSandbox());
 	}
 	
 	
 	private static void executeDroolsExamples() {
 		out.println("=== DROOLS EXECUTION ===");
-		executeWithHeadline(new SimpleDrlExample());
-		executeWithHeadline(new OwnTypesDrlExample());
-		executeWithHeadline(new DrlWithTestCasesExample());
-		executeWithHeadline(new DynamicSandboxDrlExample());
-		executeWithHeadline(new DrlSandbox());
+		executeExample(new SimpleDrlExample());
+		executeExample(new OwnTypesDrlExample());
+		executeExample(new DrlWithTestCasesExample());
+		executeExample(new DynamicSandboxDrlExample());
+		executeExample(new DrlSandbox());
 	}
 	
 	
-	private static void executeWithHeadline(AbstractSignavioExample example) {
+	private static void executeExample(AbstractSignavioExample example) {
 		out.println("= " + example.getDescription() + " =");
 		example.execute();
 		out.println();
