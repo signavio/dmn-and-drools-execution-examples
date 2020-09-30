@@ -7,8 +7,17 @@ import org.kie.dmn.api.core.DMNResult;
 
 public class SimpleDmnExample extends AbstractDmnExample {
 	
+	private static final String DESCRIPTION = "Simple Example";
+	
+	
 	public SimpleDmnExample() {
 		super("SignavioExampleDMNSimpleKB");
+	}
+	
+	
+	@Override
+	public String getDescription() {
+		return DESCRIPTION;
 	}
 	
 	
@@ -27,13 +36,13 @@ public class SimpleDmnExample extends AbstractDmnExample {
 		DMNResult topLevelResult = getDmnRuntime().evaluateAll(model, dmnContext);
 		
 		// retrieving execution results
-		System.out.println("--- top level results ---");
-		handleResult(topLevelResult);
+		System.out.println("--- results of evaluating all ---");
+		topLevelResult.getDecisionResults().forEach(this::printAsJson);
 		
-		// retrieve intermediate results
-		System.out.println("--- intermediate results ---");
+		// evaluating the decision logic partially
+		System.out.println("--- results of evauluating partially ---");
 		DMNResult lowerLevelResult = getDmnRuntime().evaluateByName(model, dmnContext, "calculateDiscountBasedOnYears");
-		handleResult(lowerLevelResult);
+		lowerLevelResult.getDecisionResults().forEach(this::printAsJson);
 	}
 	
 }

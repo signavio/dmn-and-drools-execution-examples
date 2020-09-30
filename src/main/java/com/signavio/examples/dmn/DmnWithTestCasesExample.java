@@ -22,8 +22,17 @@ import static java.util.stream.Collectors.toList;
 
 public class DmnWithTestCasesExample extends AbstractDmnExample {
 	
+	private static final String DESCRIPTION = "Example with testcases";
+	
+	
 	public DmnWithTestCasesExample() {
 		super("SignavioExampleDMNSimpleKB");
+	}
+	
+	
+	@Override
+	public String getDescription() {
+		return DESCRIPTION;
 	}
 	
 	
@@ -37,7 +46,7 @@ public class DmnWithTestCasesExample extends AbstractDmnExample {
 		
 		// executing tests
 		List<TestResult> testResults = executeTestCases(testSuite, model);
-		testResults.stream().forEach(System.out::println);
+		testResults.forEach(this::printAsJson);
 	}
 	
 	

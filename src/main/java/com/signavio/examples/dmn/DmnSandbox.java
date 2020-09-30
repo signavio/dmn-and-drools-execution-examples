@@ -8,8 +8,17 @@ import org.kie.dmn.api.core.DMNResult;
 
 public class DmnSandbox extends AbstractDmnExample {
 	
+	private static final String DESCRIPTION = "Sandbox";
+	
+	
 	public DmnSandbox() {
 		super("SignavioExampleDMNSandboxKB");
+	}
+	
+	
+	@Override
+	public String getDescription() {
+		return DESCRIPTION;
 	}
 	
 	

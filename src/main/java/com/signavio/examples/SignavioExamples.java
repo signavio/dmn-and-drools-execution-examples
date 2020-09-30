@@ -5,37 +5,42 @@ import com.signavio.examples.dmn.DmnWithTestCasesExample;
 import com.signavio.examples.dmn.SimpleDmnExample;
 import com.signavio.examples.drl.DrlSandbox;
 import com.signavio.examples.drl.DrlWithTestCasesExample;
+import com.signavio.examples.drl.DynamicSandboxDrlExample;
 import com.signavio.examples.drl.OwnTypesDrlExample;
 import com.signavio.examples.drl.SimpleDrlExample;
-import com.signavio.examples.drl.DynamicSandboxDrlExample;
+
+import static java.lang.System.out;
 
 public class SignavioExamples {
 	
-	public static void main(String[] args) throws Exception {
-		System.out.println("\n\n=== DYNAMIC DROOLS EXECUTION ===");
-		new DynamicSandboxDrlExample().execute();
-
-		System.out.println("\n\n=== DMN EXECUTION ===");
-		new SimpleDmnExample().execute();
-
-		System.out.println("\n\n=== DMN EXECUTION WITH TESTCASES ===");
-		new DmnWithTestCasesExample().execute();
-
-		System.out.println("\n\n=== DROOLS EXECUTION ===");
-		new SimpleDrlExample().execute();
-
-		System.out.println("\n\n=== DROOLS EXECUTION WITH OWN TYPE ===");
-		new OwnTypesDrlExample().execute();
-
-		System.out.println("\n\n=== DROOLS EXECUTION WITH TEST CASES ===");
-		new DrlWithTestCasesExample().execute();
-
-		System.out.println("\n\n=== DROOLS EXECUTION SANDBOX ===");
-		new DrlSandbox().execute();
-		
-		System.out.println("\n\n=== DMN EXECUTION SANDBOX ===");
-		new DmnSandbox().execute();
+	public static void main(String[] args) {
+		executeDmnExamples();
+		executeDroolsExamples();
 	}
 	
+	
+	private static void executeDmnExamples() {
+		out.println("=== DMN EXECUTION ===");
+		executeWithHeadline(new SimpleDmnExample());
+		executeWithHeadline(new DmnWithTestCasesExample());
+		executeWithHeadline(new DmnSandbox());
+	}
+	
+	
+	private static void executeDroolsExamples() {
+		out.println("=== DROOLS EXECUTION ===");
+		executeWithHeadline(new SimpleDrlExample());
+		executeWithHeadline(new OwnTypesDrlExample());
+		executeWithHeadline(new DrlWithTestCasesExample());
+		executeWithHeadline(new DynamicSandboxDrlExample());
+		executeWithHeadline(new DrlSandbox());
+	}
+	
+	
+	private static void executeWithHeadline(AbstractSignavioExample example) {
+		out.println("= " + example.getDescription() + " =");
+		example.execute();
+		out.println();
+	}
 	
 }

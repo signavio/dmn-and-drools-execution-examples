@@ -3,8 +3,7 @@ package com.signavio.examples.drl;
 import java.util.Collection;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.signavio.examples.AbstractSignavioExample;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.kie.api.KieServices;
@@ -16,7 +15,7 @@ import org.kie.api.runtime.KieSession;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 
-public abstract class AbstractDrlExample {
+public abstract class AbstractDrlExample extends AbstractSignavioExample {
 	
 	private final KieContainer kieClasspathContainer = KieServices.Factory.get().getKieClasspathContainer();
 	private final String kieSessionId;
@@ -28,9 +27,6 @@ public abstract class AbstractDrlExample {
 		this.kieSessionId = kieSessionId;
 		this.packageName = packageName;
 	}
-	
-	
-	public abstract void execute();
 	
 	
 	/**
@@ -89,14 +85,6 @@ public abstract class AbstractDrlExample {
 	private FactType getOutputFactType(String outputName) {
 		return kieSession.getKieBase()
 				.getFactType(packageName, outputName + "_Output");
-	}
-	
-	protected void printAsJson(Object result) {
-		try {
-			System.out.println(new ObjectMapper().writeValueAsString(result));
-		} catch (JsonProcessingException e) {
-			System.err.println(result);
-		}
 	}
 	
 }

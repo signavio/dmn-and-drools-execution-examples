@@ -7,12 +7,20 @@ import org.kie.api.runtime.KieSession;
 
 public class SimpleDrlExample extends AbstractDrlExample {
 	
+	private static final String DESCRIPTION = "Simple Example";
+	
 	private static final String PACKAGE_NAME = "com.signavio.examples.drl.simple";
 	private static final String SESSION_ID = "SignavioExampleDroolsSimpleKS";
 	
 	
 	public SimpleDrlExample() {
 		super(SESSION_ID, PACKAGE_NAME);
+	}
+	
+	
+	@Override
+	public String getDescription() {
+		return DESCRIPTION;
 	}
 	
 	
