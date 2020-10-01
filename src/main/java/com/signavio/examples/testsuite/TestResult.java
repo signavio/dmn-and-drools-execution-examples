@@ -1,4 +1,4 @@
-package com.signavio.examples.dmn.testsuite;
+package com.signavio.examples.testsuite;
 
 import java.util.List;
 

@@ -4,20 +4,20 @@ import java.util.List;
 
 import com.signavio.bdm.testlab.exchange.TestCase;
 import com.signavio.bdm.testlab.exchange.TestSuite;
-import com.signavio.examples.TestSuiteUtil;
-import com.signavio.examples.dmn.testsuite.TestResult;
+import com.signavio.examples.testsuite.TestSuiteUtil;
+import com.signavio.examples.testsuite.TestResult;
 import org.apache.commons.lang3.tuple.Pair;
 import org.kie.dmn.api.core.DMNContext;
 import org.kie.dmn.api.core.DMNDecisionResult;
 import org.kie.dmn.api.core.DMNModel;
 import org.kie.dmn.api.core.DMNResult;
 
-import static com.signavio.examples.TestSuiteUtil.getInputNames;
-import static com.signavio.examples.TestSuiteUtil.getOutputName;
-import static com.signavio.examples.TestSuiteUtil.getParameterValue;
-import static com.signavio.examples.TestSuiteUtil.readTestSuite;
-import static com.signavio.examples.dmn.testsuite.TestResult.failure;
-import static com.signavio.examples.dmn.testsuite.TestResult.success;
+import static com.signavio.examples.testsuite.TestSuiteUtil.getInputNames;
+import static com.signavio.examples.testsuite.TestSuiteUtil.getOutputName;
+import static com.signavio.examples.testsuite.TestSuiteUtil.getParameterValue;
+import static com.signavio.examples.testsuite.TestSuiteUtil.readTestSuite;
+import static com.signavio.examples.testsuite.TestResult.failure;
+import static com.signavio.examples.testsuite.TestResult.success;
 import static java.util.stream.Collectors.toList;
 
 public class DmnWithTestCasesExample extends AbstractDmnExample {
@@ -42,7 +42,7 @@ public class DmnWithTestCasesExample extends AbstractDmnExample {
 		DMNModel model = getDmnRuntime().getModels().get(0); // assuming there is only one model in the KieBase
 		
 		// parsing the testsuite
-		TestSuite testSuite = readTestSuite("dmn");
+		TestSuite testSuite = readTestSuite();
 		
 		// executing tests
 		List<TestResult> testResults = executeTestCases(testSuite, model);

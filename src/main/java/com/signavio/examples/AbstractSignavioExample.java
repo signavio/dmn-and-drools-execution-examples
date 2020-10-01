@@ -3,7 +3,7 @@ package com.signavio.examples;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.signavio.bdm.testlab.exchange.TestCase;
-import com.signavio.examples.dmn.testsuite.TestResult;
+import com.signavio.examples.testsuite.TestResult;
 
 import static com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT;
 import static java.lang.System.err;
