@@ -2,6 +2,7 @@ package com.signavio.examples;
 
 import com.signavio.examples.dmn.DmnSandbox;
 import com.signavio.examples.dmn.DmnWithTestCasesExample;
+import com.signavio.examples.dmn.OwnTypesDmnExample;
 import com.signavio.examples.dmn.SimpleDmnExample;
 import com.signavio.examples.drl.DrlSandbox;
 import com.signavio.examples.drl.DrlWithTestCasesExample;
@@ -24,6 +25,7 @@ public class SignavioExamples {
 		executeExample(new SimpleDmnExample());
 		executeExample(new DmnWithTestCasesExample());
 		executeExample(new DmnSandbox());
+		executeExample(new OwnTypesDmnExample());
 	}
 	
 	
