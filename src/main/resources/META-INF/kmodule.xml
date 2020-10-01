@@ -18,6 +18,10 @@
         <ksession name="SignavioExampleDMNSimpleKS"/>
     </kbase>
 
+    <kbase name="SignavioExampleDMNOwnTypesKB" packages="com.signavio.examples.dmn.owntypes">
+        <ksession name="SignavioExampleDMNOwnTypesKS"/>
+    </kbase>
+
     <kbase name="SignavioExampleDMNSandboxKB" packages="com.signavio.examples.dmn.sandbox">
         <ksession name="SignavioExampleDMNSandboxKS"/>
     </kbase>
