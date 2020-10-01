@@ -1,11 +1,21 @@
 package com.signavio.examples.dmn.testsuite;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.signavio.bdm.testlab.exchange.DefaultParameter;
 import com.signavio.bdm.testlab.exchange.TestCase;
 
+@JsonPropertyOrder({ "success", "testCase" })
 public class TestResult {
 	
-	private TestCase testCase;
-	private boolean success;
+	@JsonProperty
+	private final TestCase testCase;
+	
+	@JsonProperty
+	private final boolean success;
 	
 	
 	public TestResult(TestCase testCase, boolean success) {
@@ -24,8 +34,11 @@ public class TestResult {
 	}
 	
 	
-	@Override
-	public String toString() {
-		return String.valueOf(success) + " -> " + testCase.toString();
+	public abstract static class TestCaseMixin {
+		
+		@JsonIgnore
+		public abstract List<DefaultParameter> getAllExpectedParametersInternal();
+		
 	}
+	
 }

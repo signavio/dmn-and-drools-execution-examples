@@ -16,13 +16,11 @@ public class TestSuiteReader {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	
 	
-	// TODO: TestSuite.class is part of the bdm-test-suite-api, clarify if Signavio is publishing it
 	public TestSuite parse(InputStream testSuite) {
 		try {
 			JsonReader reader = createTestSuiteReader(testSuite);
 			JsonObject testSuiteJson = GSON.fromJson(reader, JsonObject.class);
 			
-			// TODO: just for this we need a whole bunch of other dependencies
 			return TestSuite.fromJson(new JSONObject(testSuiteJson.toString()));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
