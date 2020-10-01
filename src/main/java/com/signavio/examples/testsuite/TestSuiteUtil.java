@@ -1,4 +1,4 @@
-package com.signavio.examples;
+package com.signavio.examples.testsuite;
 
 import java.io.InputStream;
 import java.util.List;
@@ -14,7 +14,6 @@ import com.signavio.bdm.testlab.exchange.types.EnumerationParameter;
 import com.signavio.bdm.testlab.exchange.types.NumberParameter;
 import com.signavio.bdm.testlab.exchange.types.TextParameter;
 import com.signavio.bdm.testlab.exchange.types.TimeParameter;
-import com.signavio.examples.dmn.testsuite.TestSuiteReader;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -22,17 +21,17 @@ import static com.google.common.base.CaseFormat.LOWER_CAMEL;
 import static com.google.common.base.CaseFormat.UPPER_CAMEL;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.range;
-import static org.apache.commons.lang.WordUtils.capitalize;
+import static org.apache.commons.lang3.text.WordUtils.capitalize;
 
-// TODO this is the uggly part
 public class TestSuiteUtil {
 	
 	private TestSuiteUtil() {
 	}
 	
 	
-	public static TestSuite readTestSuite(String basePackage) {
-		InputStream testSuiteStream = TestSuiteUtil.class.getResourceAsStream(basePackage + "/simple/Simple-TestLab.json");
+	public static TestSuite readTestSuite() {
+		InputStream testSuiteStream =
+				TestSuiteUtil.class.getResourceAsStream("Simple-TestLab.json");
 		return new TestSuiteReader().parse(testSuiteStream);
 	}
 	
