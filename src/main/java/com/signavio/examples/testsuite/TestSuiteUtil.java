@@ -21,7 +21,7 @@ import static com.google.common.base.CaseFormat.LOWER_CAMEL;
 import static com.google.common.base.CaseFormat.UPPER_CAMEL;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.range;
-import static org.apache.commons.lang.WordUtils.capitalize;
+import static org.apache.commons.lang3.text.WordUtils.capitalize;
 
 public class TestSuiteUtil {
 	
