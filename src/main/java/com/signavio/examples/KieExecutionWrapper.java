@@ -15,8 +15,11 @@ import org.kie.api.io.ResourceType;
 import org.kie.api.runtime.ClassObjectFilter;
 import org.kie.api.runtime.KieSession;
 import org.kie.internal.builder.KnowledgeBuilder;
-import org.kie.internal.builder.KnowledgeBuilderFactory;
+import org.kie.internal.builder.KnowledgeBuilderConfiguration;
 import org.kie.internal.io.ResourceFactory;
+
+import static org.kie.internal.builder.KnowledgeBuilderFactory.newKnowledgeBuilder;
+import static org.kie.internal.builder.KnowledgeBuilderFactory.newKnowledgeBuilderConfiguration;
 
 public class KieExecutionWrapper {
 	
@@ -35,9 +38,16 @@ public class KieExecutionWrapper {
 	
 	
 	private KieSession newKieSession(Reader drlReader) {
-		KnowledgeBuilder knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
+		KnowledgeBuilder knowledgeBuilder = enableSignavioProfile();
 		knowledgeBuilder.add(ResourceFactory.newReaderResource(drlReader), ResourceType.DRL);
 		return knowledgeBuilder.newKieBase().newKieSession();
+	}
+	
+	
+	private KnowledgeBuilder enableSignavioProfile() {
+		KnowledgeBuilderConfiguration knowledgeBuilderConfiguration = newKnowledgeBuilderConfiguration();
+		knowledgeBuilderConfiguration.setProperty("org.kie.dmn.profiles.signavio", "org.kie.dmn.signavio.KieDMNSignavioProfile");
+		return newKnowledgeBuilder(knowledgeBuilderConfiguration);
 	}
 	
 	
