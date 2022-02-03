@@ -28,7 +28,7 @@ import static com.signavio.examples.testsuite.TestResult.failure;
 import static com.signavio.examples.testsuite.TestResult.success;
 import static com.signavio.examples.testsuite.TestSuiteUtil.getInputNames;
 import static com.signavio.examples.testsuite.TestSuiteUtil.getOutputName;
-import static com.signavio.examples.testsuite.TestSuiteUtil.getParameterValue;
+import static com.signavio.examples.testsuite.TestSuiteUtil.getParameterValueComparator;
 import static java.util.stream.Collectors.toList;
 
 public class DrlWithTestCasesExample extends AbstractDrlExample {
@@ -52,7 +52,7 @@ public class DrlWithTestCasesExample extends AbstractDrlExample {
 	
 	@Override
 	public void execute() {
-		TestSuite testSuite = TestSuiteUtil.readTestSuite();
+		TestSuite testSuite = TestSuiteUtil.readTestSuite("Simple-TestLab.json");
 		List<TestResult> testResults = executeTestCases(testSuite);
 		testResults.forEach(this::printAsJson);
 	}
@@ -85,7 +85,7 @@ public class DrlWithTestCasesExample extends AbstractDrlExample {
 		ksession.fireAllRules();
 		
 		// retrieving execution results
-		Comparable expectedOutput = getParameterValue(testCase.getExpectedParameter());
+		Comparable expectedOutput = getParameterValueComparator(testCase.getExpectedParameter());
 		Object actualOutput = getOutput(output);
 		
 		// cleaning up

@@ -23,13 +23,13 @@ import org.kie.dmn.api.core.DMNModel;
 
 import static com.signavio.examples.testsuite.TestSuiteUtil.readTestSuite;
 
-public class DmnWithTestCasesExample extends AbstractDmnTestableExample {
+public class TestExample extends AbstractDmnTestableExample {
 	
-	private static final String DESCRIPTION = "Example with testcases";
+	private static final String DESCRIPTION = "Test Example";
 	
 	
-	public DmnWithTestCasesExample() {
-		super("SignavioExampleDMNSimpleKB");
+	public TestExample() {
+		super("SignavioExampleDMNTestKB");
 	}
 	
 	
@@ -45,13 +45,11 @@ public class DmnWithTestCasesExample extends AbstractDmnTestableExample {
 		DMNModel model = getDmnRuntime().getModels().get(0); // assuming there is only one model in the KieBase
 		
 		// parsing the testsuite
-		TestSuite testSuite = readTestSuite("Simple-TestLab.json");
+		TestSuite testSuite = readTestSuite("tests.json");
 		
 		// executing tests
 		List<TestResult> testResults = executeTestCases(testSuite, model);
 		testResults.forEach(this::printAsJson);
 	}
-	
-	
 	
 }

@@ -16,16 +16,23 @@
 package com.signavio.examples.testsuite;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.signavio.bdm.testlab.exchange.DefaultParameter;
 import com.signavio.bdm.testlab.exchange.ParameterDefinition;
 import com.signavio.bdm.testlab.exchange.TestCase;
 import com.signavio.bdm.testlab.exchange.TestSuite;
 import com.signavio.bdm.testlab.exchange.types.BooleanParameter;
+import com.signavio.bdm.testlab.exchange.types.ComplexParameter;
+import com.signavio.bdm.testlab.exchange.types.ComplexSlotParameter;
 import com.signavio.bdm.testlab.exchange.types.DateParameter;
 import com.signavio.bdm.testlab.exchange.types.DateTimeParameter;
 import com.signavio.bdm.testlab.exchange.types.EnumerationParameter;
+import com.signavio.bdm.testlab.exchange.types.ListParameter;
 import com.signavio.bdm.testlab.exchange.types.NumberParameter;
 import com.signavio.bdm.testlab.exchange.types.TextParameter;
 import com.signavio.bdm.testlab.exchange.types.TimeParameter;
@@ -34,20 +41,13 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import static com.google.common.base.CaseFormat.LOWER_CAMEL;
 import static com.google.common.base.CaseFormat.UPPER_CAMEL;
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.*;
 import static java.util.stream.IntStream.range;
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 
 public class TestSuiteUtil {
 	
 	private TestSuiteUtil() {
-	}
-	
-	
-	public static TestSuite readTestSuite() {
-		InputStream testSuiteStream =
-				TestSuiteUtil.class.getResourceAsStream("Simple-TestLab.json");
-		return new TestSuiteReader().parse(testSuiteStream);
 	}
 	
 	
@@ -59,13 +59,27 @@ public class TestSuiteUtil {
 	}
 	
 	
+	public static List<Pair<String, Object>> getInputs(TestCase testCase, List<String> orderedInputNames) {
+		List<Object> inputValues = testCase.getInputParameters().stream()
+				.map(TestSuiteUtil::getParameterValueComparator)
+				.collect(toList());
+		
+		return range(0, orderedInputNames.size())
+				.mapToObj(index -> ImmutablePair.of(orderedInputNames.get(index), inputValues.get(index)))
+				.collect(toList());
+	}
+	
+	
 	public static String getOutputName(TestSuite testSuite) {
 		String requirementName = testSuite.getOutputParameterDefinition().getRequirementName();
 		return toCamelCase(requirementName);
 	}
 	
 	
-	public static Comparable getParameterValue(DefaultParameter parameter) {
+	public static Object getParameterValue(DefaultParameter parameter) {
+		if (parameter == null) {
+			return null;
+		}
 		switch (parameter.getType()) {
 			case TEXT:
 				return ((TextParameter) parameter).getValue();
@@ -81,33 +95,73 @@ public class TestSuiteUtil {
 				return ((DateTimeParameter) parameter).getValue();
 			case ENUMERATION:
 				return ((EnumerationParameter) parameter).getItemName();
+			case LIST:
+				return ((ListParameter) parameter).getElements().stream()
+						.map(TestSuiteUtil::getParameterValue)
+						.collect(toList());
+			case COMPLEX:
+				return ((ComplexParameter) parameter).getSlots().stream()
+						.collect(toMap(ComplexSlotParameter::getName, s -> getParameterValue(s.getValue())));
 			default:
-				throw new RuntimeException("Not supported in this example.");
+				throw new RuntimeException("Not supported in this example: " + parameter.getType());
 		}
 	}
 	
 	
-	public static List<Pair<String, Object>> getInputs(TestCase testCase, List<String> orderedInputNames) {
-		List<Object> inputValues = getInputValues(testCase);
-		
-		return range(0, orderedInputNames.size())
-				.mapToObj(index -> ImmutablePair.of(orderedInputNames.get(index), inputValues.get(index)))
-				.collect(toList());
+	public static Comparable getParameterValueComparator(DefaultParameter parameter) {
+		switch (parameter.getType()) {
+			case TEXT:
+				return ((TextParameter) parameter).getValue();
+			case NUMBER:
+				return ((NumberParameter) parameter).getValue();
+			case BOOLEAN:
+				return ((BooleanParameter) parameter).getValue();
+			case DATE:
+				return ((DateParameter) parameter).getValue();
+			case TIME:
+				return ((TimeParameter) parameter).getValue();
+			case DATETIME:
+				return ((DateTimeParameter) parameter).getValue();
+			case ENUMERATION:
+				return ((EnumerationParameter) parameter).getItemName();
+			
+			case HIERARCHY:
+				return o -> {
+					throw new IllegalStateException(
+							"Should compare HIERARCHY: " + getParameterValue(parameter) + " with " + o);
+				};
+			
+			case LIST:
+				return o -> {
+					throw new IllegalStateException(
+							"Should compare LIST: " + getParameterValue(parameter) + " with " + o);
+				};
+			
+			case COMPLEX:
+				return o -> {
+					throw new IllegalStateException(
+							"Should compare COMPLEX: " + getParameterValue(parameter) + " with " + o);
+				};
+			
+			default:
+				throw new RuntimeException("Not supported in this example: " + parameter.getType());
+		}
 	}
 	
 	
-	private static List<Object> getInputValues(TestCase testCase) {
-		return testCase.getInputParameters().stream()
-				.map(TestSuiteUtil::getParameterValue)
-				.collect(toList());
+	public static TestSuite readTestSuite(String name) {
+		InputStream testSuiteStream =
+				TestSuiteUtil.class.getResourceAsStream(name);
+		return new TestSuiteReader().parse(testSuiteStream);
 	}
 	
 	
-	private static String toCamelCase(String original) {
+	public static String toCamelCase(String original) {
 		return UPPER_CAMEL.to(
 				LOWER_CAMEL,
 				capitalize(original).replaceAll("\\s", "")
 		);
 	}
+	
 	
 }
