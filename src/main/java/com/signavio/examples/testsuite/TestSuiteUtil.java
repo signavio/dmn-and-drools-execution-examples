@@ -36,6 +36,7 @@ import com.signavio.bdm.testlab.exchange.types.ListParameter;
 import com.signavio.bdm.testlab.exchange.types.NumberParameter;
 import com.signavio.bdm.testlab.exchange.types.TextParameter;
 import com.signavio.bdm.testlab.exchange.types.TimeParameter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -45,6 +46,7 @@ import static java.util.stream.Collectors.*;
 import static java.util.stream.IntStream.range;
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 
+@Slf4j
 public class TestSuiteUtil {
 	
 	private TestSuiteUtil() {
@@ -61,7 +63,7 @@ public class TestSuiteUtil {
 	
 	public static List<Pair<String, Object>> getInputs(TestCase testCase, List<String> orderedInputNames) {
 		List<Object> inputValues = testCase.getInputParameters().stream()
-				.map(TestSuiteUtil::getParameterValueComparator)
+				.map(TestSuiteUtil::getParameterValue)
 				.collect(toList());
 		
 		return range(0, orderedInputNames.size())
@@ -127,18 +129,21 @@ public class TestSuiteUtil {
 			
 			case HIERARCHY:
 				return o -> {
+					log.error("Should implement HIERARCHY comparator");
 					throw new IllegalStateException(
 							"Should compare HIERARCHY: " + getParameterValue(parameter) + " with " + o);
 				};
 			
 			case LIST:
 				return o -> {
+					log.error("Should implement LIST comparator");
 					throw new IllegalStateException(
 							"Should compare LIST: " + getParameterValue(parameter) + " with " + o);
 				};
 			
 			case COMPLEX:
 				return o -> {
+					log.error("Should implement COMPLEX comparator");
 					throw new IllegalStateException(
 							"Should compare COMPLEX: " + getParameterValue(parameter) + " with " + o);
 				};

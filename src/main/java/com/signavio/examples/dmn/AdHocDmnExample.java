@@ -13,19 +13,27 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package com.signavio.examples.drl;
+package com.signavio.examples.dmn;
 
-public class DrlWithTestCasesExample extends DrlTestableExample {
+public class AdHocDmnExample extends DmnTestableExample {
+	
+	private static final String DESCRIPTION = "Adhoc Example";
 	
 	
-	public DrlWithTestCasesExample() {
-		super("SignavioExampleDroolsSimpleKS", "com.signavio.examples.drl.simple", "Simple-TestLab.json",
-				"Example with testcases");
+	public AdHocDmnExample() {
+		super("AdHocDmnKB", "adhoc_test.json", DESCRIPTION);
 	}
 	
 	
 	public static void main(String[] args) {
-		new DrlWithTestCasesExample().execute();
+		new AdHocDmnExample().execute();
 	}
+	
+	
+	@Override
+	public String getDescription() {
+		return DESCRIPTION;
+	}
+	
 	
 }

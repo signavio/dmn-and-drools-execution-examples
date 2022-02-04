@@ -1,0 +1,261 @@
+{
+  "inputParameterDefinitions": [
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/5236d7592cd94cf9a5c2e72ba0586d05",
+      "shapeId": "5236d7592cd94cf9a5c2e72ba0586d05",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "_204"
+    },
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/sid-B58F8D88-5591-484E-A536-D768BE34FBE3",
+      "shapeId": "sid-B58F8D88-5591-484E-A536-D768BE34FBE3",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "_3130"
+    },
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/sid-4543A445-5A53-4950-BCCD-61C04DCDD595",
+      "shapeId": "sid-4543A445-5A53-4950-BCCD-61C04DCDD595",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "_1054"
+    },
+    {
+      "id": "2f864784488e44dd89851d6bb795d6a3/sid-64B87DDC-590B-4104-A297-955C7833A2FF",
+      "shapeId": "sid-64B87DDC-590B-4104-A297-955C7833A2FF",
+      "diagramId": "2f864784488e44dd89851d6bb795d6a3",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "Onboarding Client Relationship Beneficial Owner SIC Code Tech Value"
+    },
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/6e209fa73a4b48c5852569207470a0a0",
+      "shapeId": "6e209fa73a4b48c5852569207470a0a0",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "_466"
+    },
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/sid-12300E8A-6993-4567-8CAE-9800DC231D22",
+      "shapeId": "sid-12300E8A-6993-4567-8CAE-9800DC231D22",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "_3019"
+    },
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/sid-8D989E5D-DB4C-45D5-A9F0-92443B143B09",
+      "shapeId": "sid-8D989E5D-DB4C-45D5-A9F0-92443B143B09",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "_662"
+    },
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/4618844d302b44219ce13afe5ca3e895",
+      "shapeId": "4618844d302b44219ce13afe5ca3e895",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "_218"
+    },
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/sid-77446DB8-C3CE-4158-AF62-4A73C8166CE8",
+      "shapeId": "sid-77446DB8-C3CE-4158-AF62-4A73C8166CE8",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "_924"
+    },
+    {
+      "id": "7fc0e14bb51545aa9fc020daa4aa9709/sid-59D381BC-4E78-461A-A696-AB02683978A4",
+      "shapeId": "sid-59D381BC-4E78-461A-A696-AB02683978A4",
+      "diagramId": "7fc0e14bb51545aa9fc020daa4aa9709",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "Onboarding Client Relationship Beneficial Owner CIP Code Tech Value"
+    },
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/75526ccb85d844bdac0add8077a3a439",
+      "shapeId": "75526ccb85d844bdac0add8077a3a439",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "_198"
+    },
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/sid-36561FCE-C4CA-44E8-BDEA-D32B012CF474",
+      "shapeId": "sid-36561FCE-C4CA-44E8-BDEA-D32B012CF474",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "_2895"
+    },
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/sid-3B32E77E-D22C-4BFF-99C3-7549432079BC",
+      "shapeId": "sid-3B32E77E-D22C-4BFF-99C3-7549432079BC",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "_3133"
+    },
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/sid-998EF15D-3B3A-4A27-9F31-665A5D17956B",
+      "shapeId": "sid-998EF15D-3B3A-4A27-9F31-665A5D17956B",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "_940"
+    },
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/sid-D2556890-5299-48D4-B7EF-4FFE3FE55ABC",
+      "shapeId": "sid-D2556890-5299-48D4-B7EF-4FFE3FE55ABC",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "newElement8"
+    },
+    {
+      "id": "98cb0a185b824541ac966ae85a330d88/sid-E0BF1EA0-3822-4EBF-9582-F25CB98DA2FB",
+      "shapeId": "sid-E0BF1EA0-3822-4EBF-9582-F25CB98DA2FB",
+      "diagramId": "98cb0a185b824541ac966ae85a330d88",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "gsClientRelationshipServiceRoleTechValue"
+    },
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/sid-F1BD4687-9695-4940-B3F5-13C1C108AF67",
+      "shapeId": "sid-F1BD4687-9695-4940-B3F5-13C1C108AF67",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "_656"
+    },
+    {
+      "id": "4218b95590b043d6b378c4e136338923/sid-68D47A54-BC6C-4015-B471-CF1ABDE80756",
+      "shapeId": "sid-68D47A54-BC6C-4015-B471-CF1ABDE80756",
+      "diagramId": "4218b95590b043d6b378c4e136338923",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "Onboarding Client Relationship Request Type Tech Value"
+    },
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/sid-13253267-0946-4678-B42D-61AAC5AD0FFA",
+      "shapeId": "sid-13253267-0946-4678-B42D-61AAC5AD0FFA",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "_2906"
+    },
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/438952bec15041aca8b384bdfbf756f1",
+      "shapeId": "438952bec15041aca8b384bdfbf756f1",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "_465"
+    },
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/7b55465365514dbebd24c44ad5f029c7",
+      "shapeId": "7b55465365514dbebd24c44ad5f029c7",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "_216"
+    }
+  ],
+  "outputParameterDefinitions": [
+    {
+      "id": "cc9488e403cd4f41a1f501694bc8f388/sid-66C80582-649B-4E52-9D91-02D55163D654",
+      "shapeId": "sid-66C80582-649B-4E52-9D91-02D55163D654",
+      "diagramId": "cc9488e403cd4f41a1f501694bc8f388",
+      "modelName": "Obfuscated Entity Relationship Eligible Onboarding Requirements (Copy)",
+      "requirementName": "newElement84"
+    }
+  ],
+  "testCases": [
+    {
+      "inputValues": [
+        null,
+        {
+          "type": "complex",
+          "slots": []
+        },
+        null,
+        null,
+        null,
+        null,
+        {
+          "type": "string",
+          "value": null
+        },
+        {
+          "type": "string",
+          "value": null
+        },
+        null,
+        null,
+        null,
+        null,
+        {
+          "type": "complex",
+          "slots": []
+        },
+        null,
+        {
+          "type": "complex",
+          "slots": [
+            {
+              "id": "0",
+              "name": "Onboarding Client Requested Account Profile Tech Value",
+              "value": {
+                "type": "list",
+                "value": [
+                  {
+                    "type": "complex",
+                    "slots": [
+                      {
+                        "id": "0",
+                        "name": "Onboarding Client Profile Product",
+                        "value": {
+                          "type": "enumeration",
+                          "value": "CashFi",
+                          "name": "Cash (FI)"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "complex",
+                    "slots": [
+                      {
+                        "id": "4",
+                        "name": "Onboarding Client Profile Naics Codes",
+                        "value": {
+                          "type": "enumeration",
+                          "value": "696",
+                          "name": "332994"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        null,
+        {
+          "type": "string",
+          "value": null
+        },
+        null,
+        {
+          "type": "number",
+          "value": null
+        },
+        null,
+        {
+          "type": "number",
+          "value": null
+        }
+      ],
+      "expectedValues": [
+        {
+          "type": "list",
+          "value": [
+            {
+              "type": "enumeration",
+              "value": "16",
+              "name": "DEAL"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -26,9 +26,11 @@
         <ksession name="SignavioExampleDMNSandboxKS"/>
     </kbase>
 
-
-    <kbase name="SignavioExampleDMNTestKB" packages="com.signavio.examples.dmn.test">
-        <ksession name="SignavioExampleDMNTestKS"/>
+    <kbase name="AdHocDrlKB" packages="com.signavio.examples.drl.adhoc">
+        <ksession name="AdHocDrlKs"/>
+    </kbase>
+    <kbase name="AdHocDmnKB" packages="com.signavio.examples.dmn.adhoc">
+        <ksession name="AdHocDmnKs"/>
     </kbase>
 
 </kmodule>

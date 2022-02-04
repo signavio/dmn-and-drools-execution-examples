@@ -19,11 +19,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.signavio.bdm.testlab.exchange.TestCase;
 import com.signavio.examples.testsuite.TestResult;
+import lombok.extern.slf4j.Slf4j;
 
 import static com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT;
-import static java.lang.System.err;
 import static java.lang.System.out;
 
+@Slf4j
 public abstract class AbstractSignavioExample {
 	
 	private final ObjectMapper mapper = new ObjectMapper()
@@ -40,7 +41,7 @@ public abstract class AbstractSignavioExample {
 		try {
 			out.println(mapper.writeValueAsString(result));
 		} catch (JsonProcessingException e) {
-			err.println(result);
+			log.error("Could not serialize as JSON", e);
 		}
 	}
 	

@@ -22,7 +22,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.signavio.bdm.testlab.exchange.DefaultParameter;
 import com.signavio.bdm.testlab.exchange.TestCase;
+import lombok.Data;
 
+@Data
 @JsonPropertyOrder({ "success", "testCase" })
 public class TestResult {
 	
@@ -33,21 +35,14 @@ public class TestResult {
 	private final boolean success;
 	
 	
-	public TestResult(TestCase testCase, boolean success) {
-		this.testCase = testCase;
-		this.success = success;
+	public static TestResult failure(TestCase testCase) {
+		return new TestResult(testCase, false);
 	}
 	
 	
 	public static TestResult success(TestCase testCase) {
 		return new TestResult(testCase, true);
 	}
-	
-	
-	public static TestResult failure(TestCase testCase) {
-		return new TestResult(testCase, false);
-	}
-	
 	
 	public abstract static class TestCaseMixin {
 		

@@ -19,7 +19,8 @@ import com.signavio.examples.dmn.DmnSandbox;
 import com.signavio.examples.dmn.DmnWithTestCasesExample;
 import com.signavio.examples.dmn.OwnTypesDmnExample;
 import com.signavio.examples.dmn.SimpleDmnExample;
-import com.signavio.examples.dmn.TestExample;
+import com.signavio.examples.dmn.AdHocDmnExample;
+import com.signavio.examples.drl.AdHocDrlExample;
 import com.signavio.examples.drl.DrlSandbox;
 import com.signavio.examples.drl.DrlWithTestCasesExample;
 import com.signavio.examples.drl.DynamicSandboxDrlExample;
@@ -57,8 +58,6 @@ public class SignavioExamples {
 	
 	
 	public static void main(String[] args) {
-//		executeExample(new TestExample());
-
 		executeDmnExamples();
 		executeDroolsExamples();
 	}

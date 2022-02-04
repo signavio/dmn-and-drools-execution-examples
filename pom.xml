@@ -1,105 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <repositories>
-    <repository>
-      <id>mvn_central</id>
-      <name>Maven Central</name>
-      <url>	https://repo1.maven.org/maven2/</url>
-    </repository>
-  </repositories>
+    <repositories>
+        <repository>
+            <id>mvn_central</id>
+            <name>Maven Central</name>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+    </repositories>
 
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.signavio.examples</groupId>
-  <artifactId>dmn-and-drools-execution-examples</artifactId>
-  <version>1.0.0</version>
+    <groupId>com.signavio.examples</groupId>
+    <artifactId>dmn-and-drools-execution-examples</artifactId>
+    <version>1.0.0</version>
 
-  <name>Signavio DMN and Drools Execution Examples</name>
-  <description>Examples for how to execute Drools and DMN files exported from Signavio, using KIE/Drools execution libraries.</description>
+    <name>Signavio DMN and Drools Execution Examples</name>
+    <description>Examples for how to execute Drools and DMN files exported from Signavio, using KIE/Drools execution
+        libraries.
+    </description>
 
-  <properties>
-    <java.module.name>com.signavio.examples</java.module.name>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <maven.compiler.source>1.8</maven.compiler.source>
-<!--    <kie-dmn-signavio.version>7.43.1.Final</kie-dmn-signavio.version>-->
-    <kie-dmn-signavio.version>7.64.0.Final</kie-dmn-signavio.version>
-  </properties>
+    <properties>
+        <java.module.name>com.signavio.examples</java.module.name>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <!--    <kie-dmn-signavio.version>7.43.1.Final</kie-dmn-signavio.version>-->
+        <kie-dmn-signavio.version>7.64.0.Final</kie-dmn-signavio.version>
+    </properties>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>2.4</version>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>com.signavio.examples.SignavioExamples</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.signavio.examples.SignavioExamples</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-  <dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+            <scope>provided</scope>
+        </dependency>
 
-    <dependency>
-      <groupId>com.signavio</groupId>
-      <artifactId>bdm-testsuite-api</artifactId>
-      <version>1.1</version>
-    </dependency>
+        <dependency>
+            <groupId>com.signavio</groupId>
+            <artifactId>bdm-testsuite-api</artifactId>
+            <version>1.1</version>
+        </dependency>
 
-    <dependency>
-      <groupId>com.signavio</groupId>
-      <artifactId>dmn-formulae</artifactId>
-      <version>1.1</version>
-    </dependency>
+        <dependency>
+            <groupId>com.signavio</groupId>
+            <artifactId>dmn-formulae</artifactId>
+            <version>1.1</version>
+        </dependency>
 
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>29.0-jre</version>
-    </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>29.0-jre</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.11</version>
-    </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.11</version>
+        </dependency>
 
-    <dependency>
-      <groupId>com.fasterxml.jackson</groupId>
-      <artifactId>jackson-datatype-json-org</artifactId>
-      <version>1.8.0</version>
-    </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
+        </dependency>
 
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.11.2</version>
-    </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson</groupId>
+            <artifactId>jackson-datatype-json-org</artifactId>
+            <version>1.8.0</version>
+        </dependency>
 
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.4</version>
-    </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.11.2</version>
+        </dependency>
 
-    <!-- KIE -->
-    <dependency>
-      <groupId>org.kie</groupId>
-      <artifactId>kie-dmn-signavio</artifactId>
-      <version>${kie-dmn-signavio.version}</version>
-    </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
 
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>1.2.3</version>
-    </dependency>
+        <!-- KIE -->
+        <dependency>
+            <groupId>org.kie</groupId>
+            <artifactId>kie-dmn-signavio</artifactId>
+            <version>${kie-dmn-signavio.version}</version>
+        </dependency>
 
-  </dependencies>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+    </dependencies>
 
 </project>

@@ -22,6 +22,7 @@ import com.signavio.examples.AbstractSignavioExample;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.kie.api.KieServices;
+import org.kie.api.definition.KiePackage;
 import org.kie.api.definition.type.FactType;
 import org.kie.api.runtime.ClassObjectFilter;
 import org.kie.api.runtime.KieContainer;
@@ -34,8 +35,8 @@ public abstract class AbstractDrlExample extends AbstractSignavioExample {
 	
 	private final KieContainer kieClasspathContainer = KieServices.Factory.get().getKieClasspathContainer();
 	private final String kieSessionId;
-	private final String packageName;
-	private KieSession kieSession;
+	public final String packageName;
+	public KieSession kieSession;
 	
 	
 	public AbstractDrlExample(String kieSessionId, String packageName) {
@@ -62,6 +63,17 @@ public abstract class AbstractDrlExample extends AbstractSignavioExample {
 	}
 	
 	
+	
+	protected Object getOutput(String outputName) {
+		FactType outputType = getOutputFactType(StringUtils.capitalize(outputName));
+		Collection<?> outputs = kieSession.getObjects(new ClassObjectFilter(outputType.getFactClass()));
+		return outputs.stream()
+				.map(output -> outputType.get(output, outputName))
+				.findFirst().orElse(null);
+	}
+	
+	
+	
 	/**
 	 * Creates a new Input object that contains information about the input values that should be used during the
 	 * execution of the drl file.
@@ -81,23 +93,14 @@ public abstract class AbstractDrlExample extends AbstractSignavioExample {
 		}
 	}
 	
-	
-	protected Object getOutput(String outputName) {
-		FactType outputType = getOutputFactType(StringUtils.capitalize(outputName));
-		Collection<?> outputs = kieSession.getObjects(new ClassObjectFilter(outputType.getFactClass()));
-		return outputs.stream()
-				.map(output -> outputType.get(output, outputName))
-				.findFirst().orElse(null);
-	}
-	
-	
-	private FactType getInputFactType() {
+	public FactType getInputFactType() {
 		return kieSession.getKieBase()
 				.getFactType(packageName, "Input");
 	}
 	
 	
 	private FactType getOutputFactType(String outputName) {
+//		(((List<KiePackage>)kieSession.getKieBase().getKiePackages()).get(1)).getFactTypes()
 		return kieSession.getKieBase()
 				.getFactType(packageName, outputName + "_Output");
 	}
