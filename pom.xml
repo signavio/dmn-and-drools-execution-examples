@@ -26,11 +26,68 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
         <!--    <kie-dmn-signavio.version>7.43.1.Final</kie-dmn-signavio.version>-->
-        <kie-dmn-signavio.version>7.64.0.Final</kie-dmn-signavio.version>
+        <kie.version>7.64.0.Final</kie.version>
+
+        <artifact.mainClass>com.signavio.examples.SignavioExamples</artifact.mainClass>
     </properties>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <executions>
+                    <execution>
+                        <id>mvnInstall_bdmTestSuite</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>libs/bdm-test-suite-api-1.1.jar</file>
+                            <groupId>com.signavio</groupId>
+                            <artifactId>bdm-testsuite-api</artifactId>
+                            <version>1.1</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>mvnInstall_dmnFormulae</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>libs/dmn-formulae-java8-1.1.jar</file>
+                            <groupId>com.signavio</groupId>
+                            <artifactId>dmn-formulae</artifactId>
+                            <version>1.1</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -38,9 +95,18 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.signavio.examples.SignavioExamples</mainClass>
+                            <mainClass>${artifact.mainClass}</mainClass>
                         </manifest>
                     </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <mainClass>${artifact.mainClass}</mainClass>
                 </configuration>
             </plugin>
         </plugins>
@@ -106,7 +172,7 @@
         <dependency>
             <groupId>org.kie</groupId>
             <artifactId>kie-dmn-signavio</artifactId>
-            <version>${kie-dmn-signavio.version}</version>
+            <version>${kie.version}</version>
         </dependency>
 
         <dependency>
@@ -114,7 +180,5 @@
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
         </dependency>
-
     </dependencies>
-
 </project>

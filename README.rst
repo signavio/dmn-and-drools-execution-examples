@@ -36,6 +36,12 @@ libs/dmn-formulae-java8-1.1.jar into your local Maven repository. You can do thi
 
 ``mvn install:install-file -Dfile=libs/dmn-formulae-java8-1.1.jar -DgroupId=com.signavio -DartifactId=dmn-formulae -Dversion=1.1 -Dpackaging=jar``
 
+You can also just run
+
+``mvn initialize``
+
+Or any other default maven build commands
+
 Project Structure
 =================
 Entry Point
@@ -359,3 +365,24 @@ Afterwards, you can trigger the SignavioExamples.java to run all examples (inclu
 
 .. |Header| image:: https://www.signavio.com/wp-content/uploads/2019/09/product-pages-illustrations-suite-1-1.png
    :alt: header
+
+You can also execute from maven.
+``mvn package exec:java``
+
+You can change kie version used
+``mvn package exec:java -Dkie.version=7.43.1.Final``
+
+You can change the executable class in case you want to run a different example
+``mvn package exec:java -Dartifact.mainClass=com.signavio.examples.dmn.AdHocDmnExample``
+or
+``mvn package exec:java -Dartifact.mainClass=com.signavio.examples.dmn.AdHocDrlExample``
+
+You can build the project and then execute without maven
+``mvn package``
+
+``java -jar target/dmn-and-drools-execution-examples-1.0.0.jar``
+
+``java -jar target/dmn-and-drools-execution-examples-1.0.0.jar com.signavio.examples.dmn.AdHocDmnExample ``
+``java -jar target/dmn-and-drools-execution-examples-1.0.0.jar com.signavio.examples.drl.AdHocDrlExample ``
+
+
