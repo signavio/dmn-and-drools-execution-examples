@@ -4,12 +4,12 @@
 |---------------------------------------------------|
 | DMN & Drools (DRL) Execution Example via Signavio |
 
-[![REUSE status](https://api.reuse.software/badge/github.com/signavio/dmn-and-drools-execution-examples)](https://api.reuse.software/info/github.com/signavio/dmn-and-drools-execution-examples)
+[![REUSE status](https://api.reuse.software/badge/github.com/signavio/dmn-and-drools-execution-examples)](https://api.reuse.software/info/github.com/signavio/dmn-and-drools-execution-examples) •
 [Signavio Website](https://signavio.com) •
 [Docs](https://docs.signavio.com/)
 
 
-[![build_pipleine_with_maven](https://github.com/signavio/dmn-and-drools-execution-examples/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/signavio/dmn-and-drools-execution-examples/actions?query=workflow%3A%22Java+CI+with+Maven%22)
+[![build_pipeline_with_maven](https://github.com/signavio/dmn-and-drools-execution-examples/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/signavio/dmn-and-drools-execution-examples/actions?query=workflow%3A%22Java+CI+with+Maven%22)
 
 **Disclaimer:**
 
@@ -18,8 +18,6 @@
 > engine we use in our examples is the one provided by RedHat
 > (<https://www.drools.org/>). For any engine specific questions,
 > consult the documentation provided there.
-
-**Contents**
 
 # Setup
 
