@@ -19,11 +19,7 @@
 > (<https://www.drools.org/>). For any engine specific questions,
 > consult the documentation provided there.
 
-<div class="contents" backlinks="none">
-
 **Contents**
-
-</div>
 
 # Setup
 
