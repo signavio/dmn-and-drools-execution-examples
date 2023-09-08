@@ -20,7 +20,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         distribution: 'corretto'
-        java-version: '11.0'
+        java-version: '11'
     - name: Installing Testsuite API
       run: mvn install:install-file -Dfile=libs/bdm-test-suite-api-1.1.jar -DgroupId=com.signavio -DartifactId=bdm-testsuite-api -Dversion=1.1 -Dpackaging=jar
     - name: Installing Formulae
