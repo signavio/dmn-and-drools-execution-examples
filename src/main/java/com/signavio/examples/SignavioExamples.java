@@ -1,4 +1,3 @@
-// Copyright 2020 Signavio GmbH
 // SPDX-FileCopyrightText: 2023 SAP-Signavio
 //
 // SPDX-License-Identifier: Apache-2.0
