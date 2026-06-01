@@ -95,7 +95,7 @@
     <dependency>
       <groupId>org.drools</groupId>
       <artifactId>drools-xml-support</artifactId>
-      <version>9.44.0.Final</version>
+      <version>10.2.0</version>
     </dependency>
 
     <dependency>
