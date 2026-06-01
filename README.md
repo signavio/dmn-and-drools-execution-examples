@@ -1,12 +1,10 @@
 ![header](https://www.signavio.com/wp-content/uploads/2019/09/product-pages-illustrations-suite-1-1.png)
 
-|                                                   |
 |---------------------------------------------------|
 | DMN & Drools (DRL) Execution Example via Signavio |
 
 [![REUSE status](https://api.reuse.software/badge/github.com/signavio/dmn-and-drools-execution-examples)](https://api.reuse.software/info/github.com/signavio/dmn-and-drools-execution-examples) •
-[Signavio Website](https://signavio.com) •
-[Docs](https://docs.signavio.com/)
+[SAP Signavio Website](https://signavio.com) •
 
 
 [![build_pipeline_with_maven](https://github.com/signavio/dmn-and-drools-execution-examples/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/signavio/dmn-and-drools-execution-examples/actions?query=workflow%3A%22Java+CI+with+Maven%22)
