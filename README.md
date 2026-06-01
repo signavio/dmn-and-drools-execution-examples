@@ -1,5 +1,6 @@
 ![header](https://www.signavio.com/wp-content/uploads/2019/09/product-pages-illustrations-suite-1-1.png)
 
+|                                                   |
 |---------------------------------------------------|
 | DMN & Drools (DRL) Execution Example via Signavio |
 
